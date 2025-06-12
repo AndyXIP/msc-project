@@ -5,7 +5,6 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-import csv
 import time
 import json
 
@@ -50,7 +49,7 @@ def scrape_redbubble_hoodies():
     for card in product_cards:
         try:
             link_elem = card.find_element(By.CSS_SELECTOR, 'a.styles_link__51d7d395')
-            product_url = "https://www.redbubble.com" + link_elem.get_attribute("href")
+            product_url = link_elem.get_attribute("href")
 
             title_elem = card.find_element(By.CSS_SELECTOR, 'span.styles_text__5c7a80ef')
             title = title_elem.text.strip()
@@ -78,14 +77,6 @@ def scrape_redbubble_hoodies():
     driver.quit()
     return results
 
-def save_to_csv(data, filename="./hoodie data/redbubble_hoodies.csv"):
-    with open(filename, "w", newline="", encoding="utf-8") as f:
-        fieldnames = ["title", "artist", "price", "product_url", "image_url"]
-        writer = csv.DictWriter(f, fieldnames=fieldnames)
-        writer.writeheader()
-        for item in data:
-            writer.writerow(item)
-
 def save_to_json(data, filename="./hoodie data/redbubble_hoodies.json"):
     with open(filename, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=4)
@@ -96,7 +87,6 @@ def main():
     print(f"Found {len(hoodies)} hoodies:")
     for h in hoodies:
         print(h["title"], "-", h["price"])
-    save_to_csv(hoodies)
     save_to_json(hoodies)
 
 if __name__ == "__main__":
