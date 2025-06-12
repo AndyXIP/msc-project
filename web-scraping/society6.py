@@ -1,28 +1,9 @@
-from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
-from webdriver_manager.chrome import ChromeDriverManager
-from selenium.webdriver.chrome.options import Options
+from driver_setup import setup_driver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import time
 import json
-
-def setup_driver(headless=False):
-    options = Options()
-    if headless:
-        options.add_argument("--headless")
-    options.add_argument("--window-size=1920,1080")
-    # Anti-detection and user-agent
-    options.add_argument("--disable-blink-features=AutomationControlled")
-    options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/113.0.0.0 Safari/537.36")
-    # Optional: disable GPU, sandbox (sometimes helps)
-    options.add_argument("--disable-gpu")
-    options.add_argument("--no-sandbox")
-
-    service = Service(ChromeDriverManager().install())
-    driver = webdriver.Chrome(service=service, options=options)
-    return driver
 
 def scroll_to_bottom(driver, step=300, pause=0.5):
     driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
@@ -60,7 +41,7 @@ def scrape_society6_hoodies():
             # Title (usually alt text of image or a span inside card)
             link_container = card.find_element(By.CSS_SELECTOR, "div.product-item__product-gallery")
             link_elem = link_container.find_element(By.TAG_NAME, "a")
-            product_url = "https://society6.com" + link_elem.get_attribute("href")
+            product_url = link_elem.get_attribute("href")
             title = link_elem.get_attribute("aria-label")  # You can get the title from aria-label
 
             # Artist (inside span with class 'artist-name' or similar)

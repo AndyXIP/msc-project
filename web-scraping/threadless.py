@@ -6,7 +6,7 @@ import time
 import json
 
 def scrape_redbubble_hoodies():
-    url = "https://www.redbubble.com/shop/hoodies"
+    url = "https://www.threadless.com/search/?sort=popular&departments=mens&style=pullover-hoody"
 
     driver = setup_driver(headless=False)
     driver.get(url)
@@ -14,34 +14,34 @@ def scrape_redbubble_hoodies():
     wait = WebDriverWait(driver, 20)  # wait longer because page loads JS
 
     # Scroll down to trigger lazy loading (scroll 3 times with pause)
-    for _ in range(3):
+    for _ in range(6):
         driver.execute_script("window.scrollBy(0, window.innerHeight);")
         time.sleep(1)
 
     # Wait for the container holding products
     wait.until(
-        EC.presence_of_element_located((By.CSS_SELECTOR, 'div.styles_box__54ba70e3.SearchResultsGrid_grid__z2G0D'))
+        EC.presence_of_element_located((By.CSS_SELECTOR, 'div.results-container-app'))
     )
 
-    product_cards = driver.find_elements(By.CSS_SELECTOR, 'div[data-testid="search-result-card"]')
+    product_cards = driver.find_elements(By.CSS_SELECTOR, 'div.grid-item')
 
     results = []
 
     for card in product_cards:
         try:
-            link_elem = card.find_element(By.CSS_SELECTOR, 'a.styles_link__51d7d395')
+            link_elem = card.find_element(By.CSS_SELECTOR, 'a.pjax-link.media-image.discover-as-product-linkback-mc')
             product_url = link_elem.get_attribute("href")
 
-            title_elem = card.find_element(By.CSS_SELECTOR, 'span.styles_text__5c7a80ef')
+            title_elem = card.find_element(By.CSS_SELECTOR, 'a.sf-shop-design-title.pjax-link')
             title = title_elem.text.strip()
 
-            artist_elem = card.find_element(By.XPATH, './/span[contains(text(), "By ")]')
-            artist = artist_elem.text.replace("By ", "").strip()
+            artist_elem = card.find_element(By.CSS_SELECTOR, 'a.sf-by-line.pjax-link')
+            artist = artist_elem.text.strip()
 
-            price_elem = card.find_element(By.CSS_SELECTOR, 'span[data-testid="line-item-price-price"]')
+            price_elem = card.find_element(By.CSS_SELECTOR, 'span.active_price')
             price = price_elem.text.strip()
 
-            img_elem = card.find_element(By.CSS_SELECTOR, 'img.ProductCard_productCardImage____xct')
+            img_elem = card.find_element(By.CSS_SELECTOR, 'img.img-responsive')
             image_url = img_elem.get_attribute("src")
 
             results.append({
@@ -58,7 +58,7 @@ def scrape_redbubble_hoodies():
     driver.quit()
     return results
 
-def save_to_json(data, filename="./hoodie data/redbubble_hoodies.json"):
+def save_to_json(data, filename="./hoodie data/threadless_hoodies.json"):
     with open(filename, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=4)
 
