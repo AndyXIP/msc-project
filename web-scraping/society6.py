@@ -1,9 +1,10 @@
-from driver_setup import setup_driver
+from utils.driver_setup import setup_driver
+from utils.save_data import save_to_json
+
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import time
-import json
 
 def scroll_to_bottom(driver, step=300, pause=0.5):
     driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
@@ -71,14 +72,11 @@ def scrape_society6_hoodies():
     driver.quit()
     return results
 
-def save_to_json(data, filename="./hoodie data/society6_hoodies.json"):
-    with open(filename, "w", encoding="utf-8") as f:
-        json.dump(data, f, ensure_ascii=False, indent=4)
 
 def main():
     data = scrape_society6_hoodies()
     print(f"Scraped {len(data)} products.")
-    save_to_json(data)
+    save_to_json(data, "society6.json")
 
 if __name__ == "__main__":
     main()

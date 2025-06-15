@@ -1,9 +1,10 @@
-from driver_setup import setup_driver
+from utils.driver_setup import setup_driver
+from utils.save_data import save_to_json
+
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import time
-import json
 
 def scrape_redbubble_hoodies():
     url = "https://www.redbubble.com/shop/hoodies"
@@ -58,17 +59,13 @@ def scrape_redbubble_hoodies():
     driver.quit()
     return results
 
-def save_to_json(data, filename="./hoodie data/redbubble_hoodies.json"):
-    with open(filename, "w", encoding="utf-8") as f:
-        json.dump(data, f, ensure_ascii=False, indent=4)
-
 
 def main():
     hoodies = scrape_redbubble_hoodies()
     print(f"Found {len(hoodies)} hoodies:")
     for h in hoodies:
         print(h["title"], "-", h["price"])
-    save_to_json(hoodies)
+    save_to_json(hoodies, "redbubble.json")
 
 if __name__ == "__main__":
     main()
