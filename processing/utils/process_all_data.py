@@ -2,7 +2,6 @@ import json
 import os
 
 def run_for_all_sources(process_func, raw_dir="data/raw", output_base_dir="data/processed"):
-    # Determine the path to data_sources.json relative to this script
     script_dir = os.path.dirname(os.path.abspath(__file__))
     data_sources_path = os.path.join(script_dir, "..", "data", "data_sources.json")
 

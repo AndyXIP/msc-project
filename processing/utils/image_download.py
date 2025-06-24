@@ -1,39 +1,32 @@
-import json
 import os
 import requests
 from PIL import Image
 from io import BytesIO
 
-def download_images_from_json(json_path, output_dir="data/downloaded_images"):
+def download_image(url, source, filename):
+    base_dir = "data/images"
+    output_dir = os.path.join(base_dir, source)
     os.makedirs(output_dir, exist_ok=True)
+    
+    filepath = os.path.join(output_dir, filename)
 
-    with open(json_path, "r", encoding="utf-8") as f:
-        data = json.load(f)
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+                      "AppleWebKit/537.36 (KHTML, like Gecko) "
+                      "Chrome/114.0.0.0 Safari/537.36"
+    }
+    
+    try:
+        response = requests.get(url, headers=headers, timeout=10)
+        response.raise_for_status()
 
-    for i, item in enumerate(data):
-        url = item.get("image_url")
-        if not url:
-            print(f"[{i}] No image_url found, skipping.")
-            continue
+        img = Image.open(BytesIO(response.content))
+        img = img.convert("RGB")
+        img.save(filepath)
 
-        try:
-            print(f"[{i}] Downloading from {url} ...")
-            response = requests.get(url, timeout=10)
-            response.raise_for_status()
+        print(f"Saved image to {filepath}")
+        return filepath
 
-            # Open and verify image
-            img = Image.open(BytesIO(response.content))
-            img = img.convert("RGB")  # Ensure consistent format
-
-            # Save image as 0.jpg, 1.jpg, etc
-            filename = os.path.join(output_dir, f"{i}.jpg")
-            img.save(filename)
-            print(f"[{i}] Saved image to {filename}")
-
-        except Exception as e:
-            print(f"[{i}] Failed to download {url}: {e}")
-
-if __name__ == "__main__":
-    # Change this to your JSON file path
-    json_file = "data/raw_data.json"
-    download_images_from_json(json_file)
+    except Exception as e:
+        print(f"Failed to download {url}: {e}")
+        return None
