@@ -23,7 +23,7 @@ def generate_caption(image_path):
 
 
 def main():
-    caption = generate_caption("data/images/redbubble/100.jpg")
+    caption = generate_caption("data/cropped/redbubble/0_cropped.jpg")
     print("Caption:", caption)
 
 if __name__ == "__main__":

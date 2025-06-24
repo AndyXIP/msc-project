@@ -46,7 +46,7 @@ def main():
         "front print", "zipper", "pockets", "hooded", "lightweight", "heavyweight", "fleece", "cotton"
     ]
 
-    tags = generate_tags("data/images/redbubble/118.jpg", tags_list)
+    tags = generate_tags("data/images/redbubble/0.jpg", tags_list)
     print("Tags:", tags)
 
 if __name__ == "__main__":
