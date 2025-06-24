@@ -17,61 +17,58 @@ def scroll_to_bottom(driver, step=300, pause=0.5):
         current_scroll = new_scroll
 
 
-def scrape_society6_hoodies():
-    url = "https://society6.com/collections/hoodies"
-
-    driver = setup_driver(headless=False)  # set to True if you don't want the browser to show
-    driver.get(url)
-
+def scrape_society6_hoodies(pages=21): # 30 per page, 21 pages max
+    base_url = "https://society6.com/collections/hoodies?page={page}"
+    driver = setup_driver(headless=False)
     wait = WebDriverWait(driver, 20)
+    all_results = []
 
-    # Wait for products grid to load - product cards have a 'product-tile' class typically
-    wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "ol.algolia-products-grid__grid")))
+    for page in range(1, pages + 1):
+        url = base_url.format(page=page)
+        print(f"Scraping Society6 page {page}: {url}")
+        driver.get(url)
 
-    # Scroll to bottom multiple times to load more products (if any)
-    scroll_to_bottom(driver)
+        # Wait for products grid container
+        wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "ol.algolia-products-grid__grid")))
 
-    # Now get all product cards
-    container = driver.find_element(By.CSS_SELECTOR, "ol.algolia-products-grid__grid")
-    product_cards = container.find_elements(By.CSS_SELECTOR, "li.algolia-products-grid__product-item")
+        # Scroll down continuously to trigger lazy loading
+        scroll_to_bottom(driver)
 
-    results = []
+        # Now get all product cards
+        container = driver.find_element(By.CSS_SELECTOR, "ol.algolia-products-grid__grid")
+        product_cards = container.find_elements(By.CSS_SELECTOR, "li.algolia-products-grid__product-item")
 
-    for card in product_cards:
-        try:
-            # Title (usually alt text of image or a span inside card)
-            link_container = card.find_element(By.CSS_SELECTOR, "div.product-item__product-gallery")
-            link_elem = link_container.find_element(By.TAG_NAME, "a")
-            product_url = link_elem.get_attribute("href")
-            title = link_elem.get_attribute("aria-label")  # You can get the title from aria-label
 
-            # Artist (inside span with class 'artist-name' or similar)
-            artist_elem = card.find_element(By.CSS_SELECTOR, "h3.artist-link")
-            artist = artist_elem.find_element(By.TAG_NAME, "a").text.strip()
+        for card in product_cards:
+            try:
+                link_container = card.find_element(By.CSS_SELECTOR, "div.product-item__product-gallery")
+                link_elem = link_container.find_element(By.TAG_NAME, "a")
+                product_url = link_elem.get_attribute("href")
+                title = link_elem.get_attribute("aria-label")
 
-            # Price (might be inside span with class 'price')
-            price_elem = card.find_element(By.CSS_SELECTOR, "span.product-item__product-price-label")
-            price = price_elem.text.strip()
+                artist_elem = card.find_element(By.CSS_SELECTOR, "h3.artist-link")
+                artist = artist_elem.find_element(By.TAG_NAME, "a").text.strip()
 
-            # Image URL
-            img_elem = card.find_element(By.CSS_SELECTOR, "img")
-            image_url = img_elem.get_attribute("src")
+                price_elem = card.find_element(By.CSS_SELECTOR, "span.product-item__product-price-label")
+                price = price_elem.text.strip()
 
-            results.append({
-                "title": title,
-                "artist": artist,
-                "price": price,
-                "product_url": product_url,
-                "image_url": image_url
-            })
+                img_elem = card.find_element(By.CSS_SELECTOR, "img")
+                image_url = img_elem.get_attribute("src")
 
-        except Exception as e:
-            print(f"Error parsing a product card: {e}")
-            continue
+                all_results.append({
+                    "title": title,
+                    "artist": artist,
+                    "price": price,
+                    "product_url": product_url,
+                    "image_url": image_url
+                })
+
+            except Exception as e:
+                print(f"Error parsing a product card: {e}")
+                continue
 
     driver.quit()
-    return results
-
+    return all_results
 
 def main():
     data = scrape_society6_hoodies()
