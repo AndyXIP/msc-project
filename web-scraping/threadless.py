@@ -1,4 +1,4 @@
-from utils.driver_setup import setup_driver
+from utils.driver_setup import stealth_setup_driver
 from utils.save_data import save_to_json
 
 from selenium.webdriver.common.by import By
@@ -8,7 +8,7 @@ import time
 
 def scrape_threadless_hoodies(pages=25): # 48 hoodies per page, 25 for 1200
     base_url = "https://www.threadless.com/search/?sort=popular&departments=mens&style=pullover-hoody&page={page}"
-    driver = setup_driver(headless=False)
+    driver = stealth_setup_driver(headless=False)
     all_results = []
 
     for page in range(1, pages + 1):
