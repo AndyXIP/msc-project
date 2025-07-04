@@ -32,7 +32,6 @@ def main():
     with open("data/data_sources.json", "r") as f:
         sources = json.load(f)
 
-    sources = ["threadless"]
     for source in sources:
         crop_box = CROP_PRESETS.get(source.lower())
         if not crop_box:

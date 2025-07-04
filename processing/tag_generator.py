@@ -1,53 +1,64 @@
+import os
+import json
 import clip
 import torch
 from PIL import Image
+from data.design_tags import design_tags
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
-
 model, preprocess = clip.load("ViT-B/32", device=device)
 
 def generate_tags(image_path, candidate_tags, top_k=5):
     image = preprocess(Image.open(image_path)).unsqueeze(0).to(device)
     
-    # Encode image
     with torch.no_grad():
         image_features = model.encode_image(image)
         image_features /= image_features.norm(dim=-1, keepdim=True)
     
-    # Encode candidate tags
-    text = clip.tokenize(candidate_tags).to(device)
-    with torch.no_grad():
+        text = clip.tokenize(candidate_tags).to(device)
         text_features = model.encode_text(text)
         text_features /= text_features.norm(dim=-1, keepdim=True)
     
-    # Compute cosine similarity
     similarity = (image_features @ text_features.T).squeeze(0)
-    
-    # Get top k tags
     values, indices = similarity.topk(top_k)
     tags = [candidate_tags[i] for i in indices]
     return tags
 
 def main():
-    tags_list = [
-        # Product types
-        "hoodie", "sweatshirt", "pullover", "zip-up", "crewneck", "long sleeve", "graphic tee",
+    # Load the list of sources from data_sources.json
+    with open("data/data_sources.json", "r") as f:
+        sources = json.load(f)
+    
+    for source in sources:
+        source_name = source.lower()
+        processed_json_path = f"data/processed/{source_name}.json"
         
-        # Colors (basic and common ones)
-        "black", "white", "gray", "red", "blue", "green", "yellow", "navy", "pink", "purple",
+        if not os.path.exists(processed_json_path):
+            print(f"⚠ Processed JSON not found for source '{source_name}' at {processed_json_path}")
+            continue
         
-        # Styles / patterns
-        "casual", "sporty", "plain", "striped", "checkered", "graphic", "logo", "printed", "embroidered",
+        with open(processed_json_path, "r") as f:
+            data = json.load(f)
         
-        # Audience
-        "men's", "women's", "unisex", "kids",
+        updated = False
+        for item in data:
+            img_path = item.get("image_url")
+            if not img_path or not os.path.exists(img_path):
+                print(f"⚠ Image path not found or missing: {img_path}")
+                continue
+            
+            try:
+                tags = generate_tags(img_path, design_tags, top_k=7)
+                item["tags"] = tags
+                updated = True
+                print(f"✓ Tagged {img_path}: {tags}")
+            except Exception as e:
+                print(f"❌ Failed tagging {img_path}: {e}")
         
-        # Features
-        "front print", "zipper", "pockets", "hooded", "lightweight", "heavyweight", "fleece", "cotton"
-    ]
-
-    tags = generate_tags("data/images/redbubble/0.jpg", tags_list)
-    print("Tags:", tags)
+        if updated:
+            with open(processed_json_path, "w") as f:
+                json.dump(data, f, indent=2)
+            print(f"✅ Updated tags saved to {processed_json_path}")
 
 if __name__ == "__main__":
     main()
