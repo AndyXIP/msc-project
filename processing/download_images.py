@@ -18,9 +18,9 @@ def process_images_for_source(input_path, source):
             item["image_url"] = local_path
 
     # save updated JSON
-    output_dir = os.path.join("data/processed", source)
+    output_dir = "data/processed"
     os.makedirs(output_dir, exist_ok=True)
-    output_json_path = os.path.join(output_dir, os.path.basename(input_path))
+    output_json_path = os.path.join(output_dir, f"{source}.json")
 
     with open(output_json_path, "w", encoding="utf-8") as f:
         json.dump(data, f, indent=2, ensure_ascii=False)
