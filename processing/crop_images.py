@@ -38,25 +38,38 @@ def main():
             print(f"⚠ No crop preset found for source '{source}' — skipping.")
             continue
 
-        input_dir = f"data/images/{source}"
-        output_dir = f"data/images/cropped/{source}"
-
-        if not os.path.exists(input_dir):
-            print(f"⚠ Input folder not found: {input_dir}")
+        input_json_path = f"data/processed/{source}.json"
+        if not os.path.exists(input_json_path):
+            print(f"⚠ JSON data not found for source: {input_json_path}")
             continue
 
-        for filename in os.listdir(input_dir):
-            if not filename.lower().endswith((".jpg", ".jpeg", ".png")):
+        try:
+            with open(input_json_path, "r") as f:
+                entries = json.load(f)
+        except Exception as e:
+            print(f"❌ Failed to load {input_json_path}: {e}")
+            continue
+
+        for entry in entries:
+            image_path = entry.get("image_url")
+            if not image_path or not os.path.exists(image_path):
+                print(f"⚠ Image not found or missing for entry: {entry}")
                 continue
 
-            input_path = os.path.join(input_dir, filename)
+            dirname, filename = os.path.split(image_path)
             name, ext = os.path.splitext(filename)
-            output_path = os.path.join(output_dir, f"{name}_cropped.jpg")
 
+            cropped_path = os.path.join("data/images/cropped", source, f"{name}_cropped.jpg")
             try:
-                crop_and_resize_image(input_path, output_path, crop_box)
+                crop_and_resize_image(image_path, cropped_path, crop_box)
+                entry["image_url"] = cropped_path
             except Exception as e:
-                print(f"❌ Error processing {input_path}: {e}")
+                print(f"❌ Failed to crop {image_path}: {e}")
+
+        # Write the updated entries back to the same JSON file
+        with open(input_json_path, "w") as f:
+            json.dump(entries, f, indent=2)
+            print(f"✅ Updated JSON: {input_json_path}")
 
 if __name__ == "__main__":
     main()
