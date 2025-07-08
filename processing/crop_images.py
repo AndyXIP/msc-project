@@ -68,7 +68,7 @@ def main():
 
         # Write the updated entries back to the same JSON file
         with open(input_json_path, "w") as f:
-            json.dump(entries, f, indent=2)
+            json.dump(entries, f, indent=2, ensure_ascii=False)
             print(f"✅ Updated JSON: {input_json_path}")
 
 if __name__ == "__main__":

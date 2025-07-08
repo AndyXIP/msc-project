@@ -50,7 +50,7 @@ def main():
 
         if updated:
             with open(processed_json_path, "w") as f:
-                json.dump(data, f, indent=2)
+                json.dump(data, f, indent=2, ensure_ascii=False)
             print(f"✅ Updated captions saved to {processed_json_path}")
 
 if __name__ == "__main__":

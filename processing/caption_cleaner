@@ -61,10 +61,10 @@ def main():
 
         if updated:
             with open(processed_path, "w") as f:
-                json.dump(data, f, indent=2)
+                json.dump(data, f, indent=2, ensure_ascii=False)
             print(f"✅ Cleaned captions saved to {processed_path}")
         else:
-            print(f"ℹ No updates for {source_name}")
+            print(f"No updates for {source_name}")
 
 if __name__ == "__main__":
     main()
