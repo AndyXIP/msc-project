@@ -3,7 +3,6 @@ import json
 import torch
 from PIL import Image
 from transformers import BlipProcessor, BlipForConditionalGeneration
-import re
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
 
@@ -30,7 +29,7 @@ def main():
             print(f"⚠ Processed JSON not found for source '{source_name}' at {processed_json_path}")
             continue
 
-        with open(processed_json_path, "r") as f:
+        with open(processed_json_path, "r", encoding="utf-8") as f:
             data = json.load(f)
 
         updated = False
@@ -49,7 +48,7 @@ def main():
                 print(f"❌ Failed captioning {img_path}: {e}")
 
         if updated:
-            with open(processed_json_path, "w") as f:
+            with open(processed_json_path, "w", encoding="utf-8") as f:
                 json.dump(data, f, indent=2, ensure_ascii=False)
             print(f"✅ Updated captions saved to {processed_json_path}")
 

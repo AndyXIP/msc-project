@@ -46,7 +46,7 @@ def main():
             print(f"⚠ Processed file not found: {processed_path}")
             continue
 
-        with open(processed_path, "r") as f:
+        with open(processed_path, "r", encoding="utf-8") as f:
             data = json.load(f)
 
         updated = False
@@ -60,7 +60,7 @@ def main():
                     print(f"✓ Cleaned: '{caption}' → '{cleaned}'")
 
         if updated:
-            with open(processed_path, "w") as f:
+            with open(processed_path, "w", encoding="utf-8") as f:
                 json.dump(data, f, indent=2, ensure_ascii=False)
             print(f"✅ Cleaned captions saved to {processed_path}")
         else:

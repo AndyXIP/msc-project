@@ -29,6 +29,7 @@ def main():
     with open("data/data_sources.json", "r") as f:
         sources = json.load(f)
     
+    sources = ["redbubble"]
     for source in sources:
         source_name = source.lower()
         processed_json_path = f"data/processed/{source_name}.json"
@@ -37,7 +38,7 @@ def main():
             print(f"⚠ Processed JSON not found for source '{source_name}' at {processed_json_path}")
             continue
         
-        with open(processed_json_path, "r") as f:
+        with open(processed_json_path, "r", encoding="utf-8") as f:
             data = json.load(f)
         
         updated = False
@@ -56,8 +57,8 @@ def main():
                 print(f"❌ Failed tagging {img_path}: {e}")
         
         if updated:
-            with open(processed_json_path, "w") as f:
-                json.dump(data, f, indent=2)
+            with open(processed_json_path, "w", encoding="utf-8") as f:
+                json.dump(data, f, indent=2, ensure_ascii=False)
             print(f"✅ Updated tags saved to {processed_json_path}")
 
 if __name__ == "__main__":
