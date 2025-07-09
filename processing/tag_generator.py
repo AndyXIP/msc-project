@@ -29,7 +29,6 @@ def main():
     with open("data/data_sources.json", "r") as f:
         sources = json.load(f)
     
-    sources = ["redbubble"]
     for source in sources:
         source_name = source.lower()
         processed_json_path = f"data/processed/{source_name}.json"
