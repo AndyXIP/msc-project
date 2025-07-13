@@ -1,11 +1,9 @@
 import os
 import json
 
-# Load list of source names, e.g., ["redbubble", "threadless", "society6"]
 with open("data/data_sources.json", "r", encoding="utf-8") as f:
     sources = json.load(f)
 
-# Output captions file
 output_path = "data/processed/captions.jsonl"
 os.makedirs(os.path.dirname(output_path), exist_ok=True)
 
@@ -22,24 +20,20 @@ with open(output_path, "w", encoding="utf-8") as out_file:
 
         for i, item in enumerate(items):
             try:
-                # Create prompt text
                 prompt = (
                     f"A hoodie design from {source} by {item['artist']}, featuring {item['caption']}."
                     f" Style: {', '.join(item['tags'])}."
                 )
 
-                # Compose caption entry
                 entry = {
-                    "file_name": item["image_url"],  # Use full relative path
+                    "file_name": item["image_url"],
                     "text": prompt
                 }
 
-                # Optionally check if the image exists
                 if not os.path.exists(item["image_url"]):
                     print(f"⚠️ Image not found: {item['image_url']} — skipping entry.")
                     continue
 
-                # Write to JSONL file
                 out_file.write(json.dumps(entry) + "\n")
 
             except KeyError as e:
