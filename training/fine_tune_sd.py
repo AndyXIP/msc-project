@@ -26,6 +26,7 @@ gradient_accumulation_steps = 2
 logging_steps = 50
 save_steps = 500
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+print(f"Using device: {device}")
 
 os.makedirs(output_dir, exist_ok=True)
 
