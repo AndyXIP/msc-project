@@ -4,7 +4,7 @@ from transformers import CLIPTextModel, CLIPTokenizer
 from diffusers import AutoencoderKL, UNet2DConditionModel
 import os
 
-def load_model(model_dir="./sd-finetuned-hoodie"):
+def load_model(model_dir="./sd-finetuned-model"):
     print("Loading fine-tuned model...")
     unet = UNet2DConditionModel.from_pretrained(os.path.join(model_dir, "unet"))
     text_encoder = CLIPTextModel.from_pretrained(os.path.join(model_dir, "text_encoder"))

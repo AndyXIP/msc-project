@@ -1,5 +1,6 @@
 # Virtual environment folder
 venv/
+.venv/
 
 # Byte-compiled files
 __pycache__/
@@ -16,4 +17,4 @@ __pycache__/
 
 # Data
 data/
-sd-finetuned-hoodie/
+sd-finetuned-model/
