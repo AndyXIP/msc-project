@@ -38,6 +38,16 @@ def main():
         input_path = os.path.join("data", "raw", f"{source}.json")
         process_images_for_source(input_path, source)
 
+def main_top10():
+    data_sources_path = os.path.join(os.path.dirname(__file__), "..", "data", "data_sources.json")
+    
+    with open(data_sources_path, "r") as f:
+        sources = json.load(f)
+
+    for source in sources:
+        input_path = os.path.join("data", "raw", f"top10_{source}.json")
+        process_images_for_source(input_path, source)
+
 if __name__ == "__main__":
-    main()
+    main_top10()
     
