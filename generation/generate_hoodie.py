@@ -43,13 +43,13 @@ def generate_image(pipe, prompt, output_path=None, height=512, width=512, guidan
     image = pipe(prompt, height=height, width=width, guidance_scale=guidance_scale, num_inference_steps=num_inference_steps).images[0]
 
     if output_path is None:
-        output_path = get_next_filename("data/generated")
+        output_path = get_next_filename("data/images/generated")
 
     os.makedirs(os.path.dirname(output_path) or ".", exist_ok=True)
     image.save(output_path)
     print(f"Saved image at {output_path}")
 
-def batch_generate(pipe, prompts, output_dir="data/generated"):
+def batch_generate(pipe, prompts, output_dir="data/images/generated"):
     os.makedirs(output_dir, exist_ok=True)
     for prompt in prompts:
         output_path = get_next_filename(output_dir)
