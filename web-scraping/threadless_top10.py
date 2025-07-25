@@ -74,7 +74,7 @@ def scrape_threadless_hoodies(max_items=10, max_pages=25):
 def main():
     data = scrape_threadless_hoodies(max_items=10)
     print(f"Scraped total {len(data)} hoodies.")
-    save_to_json(data, "threadless_top10.json")
+    save_to_json(data, "top10_threadless.json")
 
 if __name__ == "__main__":
     main()

@@ -46,7 +46,7 @@ def scrape_society6_hoodies(pages=21): # 30 per page, 21 pages max
                 product_url = link_elem.get_attribute("href")
                 title = link_elem.get_attribute("aria-label")
 
-                artist_elem = card.find_element(By.CSS_SELECTOR, "h3.artist-link")
+                artist_elem = card.find_element(By.CSS_SELECTOR, "div.artist-link")
                 artist = artist_elem.find_element(By.TAG_NAME, "a").text.strip()
 
                 price_elem = card.find_element(By.CSS_SELECTOR, "span.product-item__product-price-label")
