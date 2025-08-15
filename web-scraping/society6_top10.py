@@ -17,7 +17,7 @@ def scroll_to_bottom(driver, step=300, pause=0.5):
         current_scroll = new_scroll
 
 
-def scrape_society6_hoodies(max_products=10):  # limit total products scraped
+def scrape_society6(max_products=10):  # limit total products scraped
     base_url = "https://society6.com/collections/hoodies?page={page}"
     driver = setup_driver(headless=False)
     wait = WebDriverWait(driver, 20)
@@ -70,7 +70,7 @@ def scrape_society6_hoodies(max_products=10):  # limit total products scraped
 
 
 def main():
-    data = scrape_society6_hoodies()
+    data = scrape_society6()
     print(f"Scraped {len(data)} products.")
     save_to_json(data, "top10_society6.json")
 

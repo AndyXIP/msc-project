@@ -6,7 +6,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import time
 
-def scrape_redbubble_top_10():
+def scrape_redbubble():
     url = "https://www.redbubble.com/shop?iaCode=u-sweatshirts&sortOrder=trending"
     driver = setup_driver(headless=False)
     all_results = []
@@ -61,7 +61,7 @@ def scrape_redbubble_top_10():
     return all_results
 
 def main():
-    hoodies = scrape_redbubble_top_10()
+    hoodies = scrape_redbubble()
     print(f"Scraped {len(hoodies)} top hoodies from Redbubble.")
     save_to_json(hoodies, "top10_redbubble.json")
 

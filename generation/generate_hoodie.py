@@ -3,6 +3,7 @@ from diffusers import StableDiffusionPipeline, PNDMScheduler
 from transformers import CLIPTextModel, CLIPTokenizer
 from diffusers import AutoencoderKL, UNet2DConditionModel
 import os
+import json
 
 def load_model(model_dir="./sd-finetuned-model"):
     print("Loading fine-tuned model...")
@@ -55,17 +56,15 @@ def batch_generate(pipe, prompts, output_dir="data/images/generated"):
         output_path = get_next_filename(output_dir)
         generate_image(pipe, prompt, output_path)
 
+def load_captions_from_json(json_path):
+    with open(json_path, "r", encoding="utf-8") as f:
+        data = json.load(f)
+    return [f"a hoodie design of {item['caption']}" for item in data if "caption" in item]
+
 if __name__ == "__main__":
     pipe = load_model()
 
-    # Generate a single image
-    single_prompt = "A hoodie design featuring a futuristic cat with space background, graphic design style"
-    generate_image(pipe, single_prompt)  # saves as data/generated/1.png or next available
+    json_file_path = "data/processed/trendy_captions.json"
+    batch_prompts = load_captions_from_json(json_file_path)
 
-    # Generate a batch of images
-    batch_prompts = [
-        "A hoodie design with abstract shapes and neon colors, cyberpunk style",
-        "A hoodie design showing a fantasy dragon in a mystical forest",
-        "A hoodie design inspired by retro video games, pixel art style",
-    ]
     batch_generate(pipe, batch_prompts)

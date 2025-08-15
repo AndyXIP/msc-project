@@ -6,7 +6,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import time
 
-def scrape_threadless_hoodies(max_items=10, max_pages=25):
+def scrape_threadless(max_items=10, max_pages=25):
     base_url = "https://www.threadless.com/search/?sort=popular&departments=mens&style=pullover-hoody&page={page}"
     driver = stealth_setup_driver(headless=False)
     all_results = []
@@ -72,7 +72,7 @@ def scrape_threadless_hoodies(max_items=10, max_pages=25):
 
 
 def main():
-    data = scrape_threadless_hoodies(max_items=10)
+    data = scrape_threadless(max_items=10)
     print(f"Scraped total {len(data)} hoodies.")
     save_to_json(data, "top10_threadless.json")
 
