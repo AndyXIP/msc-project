@@ -1,70 +1,99 @@
-import os
-import json
 import re
+import sys
+import json
+from pathlib import Path
 
-# Words related to clothing you want to strip from captions
-CLOTHING_TERMS = [
-    "hoodie", "sweatshirt", "shirt", "t-shirt", "tee", "long sleeve", "short sleeve",
-    "jacket", "zip hoodie", "pull", "pullover", "zip", "top", "sleeve", "crewneck",
-    "sweater", "garment", "apparel", "clothing", "fit", "crew neck"
-]
+# --- Patterns for cleaning ---
+FILLER_PATTERN = re.compile(
+    r"\b(on|with|featuring|showing|displaying|wearing|a picture of|an image of|in the style of)\b",
+    flags=re.IGNORECASE
+)
+HUMAN_PATTERN = re.compile(r"\b(man|woman|girl|boy|men|women|people|person)\b", flags=re.IGNORECASE)
+REPEATED_WORDS = re.compile(r'\b(\w+)( \1\b)+', flags=re.IGNORECASE)
+UNNECESSARY_ARTICLES = re.compile(r"^(a|an|the)\s+", flags=re.IGNORECASE)
+EXTRA_SPACES = re.compile(r"\s{2,}")
+PUNCTUATION = re.compile(r"[\"`]")
+TRAILING_COMMA = re.compile(r",\s*$")
 
-# Pattern to remove known clothing-related words
-CLOTHING_PATTERN = re.compile(r"\b(" + "|".join(re.escape(term) for term in CLOTHING_TERMS) + r")\b", flags=re.IGNORECASE)
 
 def clean_caption(caption: str) -> str:
-    # Remove clothing-related words
-    caption = CLOTHING_PATTERN.sub("", caption)
+    if not caption:
+        return ""
     
-    # Remove filler/connecting words
-    caption = re.sub(r"\b(on|with|featuring|showing|displaying|wearing)\b", "", caption, flags=re.IGNORECASE)
+    caption = caption.strip()
+    caption = PUNCTUATION.sub("", caption)
+    caption = REPEATED_WORDS.sub(r"\1", caption)
+    caption = FILLER_PATTERN.sub(",", caption)
+    caption = HUMAN_PATTERN.sub("", caption)
+    caption = EXTRA_SPACES.sub(" ", caption)
+    caption = UNNECESSARY_ARTICLES.sub("", caption)
+    caption = TRAILING_COMMA.sub("", caption)
     
-    # Remove quotes and extra spaces
-    caption = re.sub(r"['\"`]", "", caption)
-    caption = re.sub(r"\s{2,}", " ", caption).strip()
+    if caption:
+        caption = caption[0].upper() + caption[1:]
     
-    # Remove leading "a" or "an"
-    caption = re.sub(r"^(a|an)\s+", "", caption, flags=re.IGNORECASE)
+    return caption.strip()
 
-    # Normalize spacing/punctuation
-    caption = caption.strip("., ")
 
-    # Remove consecutive repeated words (case insensitive)
-    caption = re.sub(r'\b(\w+)( \1\b)+', r'\1', caption, flags=re.IGNORECASE)
+def process_source_images(source_name: str, input_json: str):
+    """Process and clean captions from a JSON file, updating captions in place."""
+    file_path = Path(input_json)
+    if not file_path.exists():
+        print(f"⚠ File not found: {file_path}")
+        return
 
-    return caption
+    with open(file_path, "r", encoding="utf-8") as f:
+        data = json.load(f)
+    
+    updated = False
 
-def main():
-    with open("data/data_sources.json", "r") as f:
+    if isinstance(data, dict):
+        for key in data:
+            cleaned = clean_caption(data[key])
+            if cleaned != data[key]:
+                data[key] = cleaned
+                updated = True
+    elif isinstance(data, list):
+        if data and isinstance(data[0], dict) and "caption" in data[0]:
+            for entry in data:
+                cleaned = clean_caption(entry.get("caption", ""))
+                if cleaned != entry.get("caption", ""):
+                    entry["caption"] = cleaned
+                    updated = True
+        else:
+            for i, caption in enumerate(data):
+                cleaned = clean_caption(caption)
+                if cleaned != caption:
+                    data[i] = cleaned
+                    updated = True
+    else:
+        print(f"⚠ Unknown data format in {input_json}")
+        return
+
+    if updated:
+        with open(file_path, "w", encoding="utf-8") as f:
+            json.dump(data, f, indent=2, ensure_ascii=False)
+        print(f"[{source_name}] Captions updated in place: {file_path}")
+    else:
+        print(f"[{source_name}] No changes needed for {file_path}")
+
+
+def main(mode="top10"):
+    prefix = "top10_" if mode == "top10" else ""
+
+    # Load sources
+    with open("data/data_sources.json", "r", encoding="utf-8") as f:
         sources = json.load(f)
 
     for source in sources:
-        source_name = source.lower()
-        processed_path = f"data/processed/{source_name}.json"
+        input_json = f"data/processed/{prefix}{source}.json"
+        process_source_images(source, input_json)
 
-        if not os.path.exists(processed_path):
-            print(f"⚠ Processed file not found: {processed_path}")
-            continue
-
-        with open(processed_path, "r", encoding="utf-8") as f:
-            data = json.load(f)
-
-        updated = False
-        for item in data:
-            caption = item.get("caption")
-            if caption:
-                cleaned = clean_caption(caption)
-                if cleaned != caption:
-                    item["caption"] = cleaned
-                    updated = True
-                    print(f"✓ Cleaned: '{caption}' → '{cleaned}'")
-
-        if updated:
-            with open(processed_path, "w", encoding="utf-8") as f:
-                json.dump(data, f, indent=2, ensure_ascii=False)
-            print(f"✅ Cleaned captions saved to {processed_path}")
-        else:
-            print(f"No updates for {source_name}")
 
 if __name__ == "__main__":
-    main()
+    mode = sys.argv[1] if len(sys.argv) > 1 else "top10"
+    if mode not in ("all", "top10"):
+        print("Usage: python process_crop.py [all|top10]")
+        sys.exit(1)
+    
+    main(mode)

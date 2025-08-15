@@ -1,9 +1,11 @@
 import os
 import json
+import sys
 import clip
 import torch
 from PIL import Image
-from data.design_tags import design_tags
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'data')))
+from design_tags import design_tags
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
 model, preprocess = clip.load("ViT-B/32", device=device)
@@ -24,14 +26,16 @@ def generate_tags(image_path, candidate_tags, top_k=5):
     tags = [candidate_tags[i] for i in indices]
     return tags
 
-def main():
-    # Load the list of sources from data_sources.json
-    with open("data/data_sources.json", "r") as f:
+def main(mode="top10"):
+    prefix = "top10_" if mode == "top10" else ""
+
+    # Load the list of sources
+    with open(os.path.join("data", "data_sources.json"), "r", encoding="utf-8") as f:
         sources = json.load(f)
     
     for source in sources:
         source_name = source.lower()
-        processed_json_path = f"data/processed/{source_name}.json"
+        processed_json_path = os.path.join("data", "processed", f"{prefix}{source_name}.json")
         
         if not os.path.exists(processed_json_path):
             print(f"⚠ Processed JSON not found for source '{source_name}' at {processed_json_path}")
@@ -42,7 +46,7 @@ def main():
         
         updated = False
         for item in data:
-            img_path = item.get("image_url")
+            img_path = item.get("local_cropped_url")
             if not img_path or not os.path.exists(img_path):
                 print(f"⚠ Image path not found or missing: {img_path}")
                 continue
@@ -60,5 +64,12 @@ def main():
                 json.dump(data, f, indent=2, ensure_ascii=False)
             print(f"✅ Updated tags saved to {processed_json_path}")
 
+
 if __name__ == "__main__":
-    main()
+    import sys
+    mode = sys.argv[1].lower() if len(sys.argv) > 1 else "top10"
+    if mode not in ("all", "top10"):
+        print("Usage: python tag_generator.py [top10|all]")
+        sys.exit(1)
+
+    main(mode)

@@ -1,29 +1,42 @@
 import os
+import sys
 import json
 import torch
 from PIL import Image
-from transformers import BlipProcessor, BlipForConditionalGeneration
+from transformers import Blip2Processor, Blip2ForConditionalGeneration
 
+# Device
 device = "cuda" if torch.cuda.is_available() else "cpu"
 
-processor = BlipProcessor.from_pretrained("Salesforce/blip-image-captioning-base")
-model = BlipForConditionalGeneration.from_pretrained("Salesforce/blip-image-captioning-base").to(device)
+# Load BLIP-2 (FlanT5 variant for better text quality)
+processor = Blip2Processor.from_pretrained("Salesforce/blip2-opt-2.7b")
+model = Blip2ForConditionalGeneration.from_pretrained(
+    "Salesforce/blip2-opt-2.7b"
+).to(device)
 
 def generate_caption(image_path):
-    image = Image.open(image_path).convert('RGB')
-    inputs = processor(image, return_tensors="pt").to(device)
-    out = model.generate(**inputs)
-    caption = processor.decode(out[0], skip_special_tokens=True)
+    image = Image.open(image_path).convert("RGB")
+
+    # Prepare inputs for BLIP-2 captioning
+    inputs = processor(images=image, return_tensors="pt").to(device)
+    inputs = {k: v.to(device) for k, v in inputs.items()}  # move each tensor
+
+    # Generate caption
+    out_ids = model.generate(**inputs, max_new_tokens=60)
+    caption = processor.decode(out_ids[0], skip_special_tokens=True)
     return caption
 
-def main():
+
+def main(mode="top10"):
+    prefix = "top10_" if mode == "top10" else ""
+
     # Load sources
-    with open("data/data_sources.json", "r") as f:
+    with open("data/data_sources.json", "r", encoding="utf-8") as f:
         sources = json.load(f)
 
     for source in sources:
         source_name = source.lower()
-        processed_json_path = f"data/processed/{source_name}.json"
+        processed_json_path = f"data/processed/{prefix}{source_name}.json"
 
         if not os.path.exists(processed_json_path):
             print(f"⚠ Processed JSON not found for source '{source_name}' at {processed_json_path}")
@@ -34,7 +47,8 @@ def main():
 
         updated = False
         for item in data:
-            img_path = item.get("image_url")
+            # Use cropped images if available
+            img_path = item.get("local_cropped_url")
             if not img_path or not os.path.exists(img_path):
                 print(f"⚠ Image path not found or missing: {img_path}")
                 continue
@@ -53,4 +67,8 @@ def main():
             print(f"✅ Updated captions saved to {processed_json_path}")
 
 if __name__ == "__main__":
-    main()
+    mode = sys.argv[1] if len(sys.argv) > 1 else "top10"
+    if mode not in ("all", "top10"):
+        print("Usage: python caption_generator.py [top10|all]")
+        sys.exit(1)
+    main(mode)
