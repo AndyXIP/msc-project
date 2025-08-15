@@ -59,7 +59,7 @@ def batch_generate(pipe, prompts, output_dir="data/images/generated"):
 def load_captions_from_json(json_path):
     with open(json_path, "r", encoding="utf-8") as f:
         data = json.load(f)
-    return [f"a hoodie design of {item['caption']}" for item in data if "caption" in item]
+    return [item['description'] for item in data if "description" in item]
 
 if __name__ == "__main__":
     pipe = load_model()
