@@ -69,9 +69,11 @@ deactivate
 In the root folder:
 
 ```bash
-python 
+python web-scraping/scrape.py all
 ```
 
-This creates a `.venv` directory containing the virtual environment.
+This goes through data/data_sources.json and scrapes data from their websites.
 
 ---
+
+## 2️⃣ Processing data

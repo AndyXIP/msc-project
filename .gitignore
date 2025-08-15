@@ -16,5 +16,7 @@ __pycache__/
 .DS_Store
 
 # Data
-data/
+raw/
+processed/
+images/
 sd-finetuned-model/
