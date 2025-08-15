@@ -6,7 +6,7 @@ def save_to_json(data, fname):
     script_dir = os.path.dirname(os.path.abspath(__file__))
     
     # Build path relative to this script
-    directory = os.path.join(script_dir, "..", "data", "raw")
+    directory = os.path.join(script_dir, "..", "..", "data", "raw")
     os.makedirs(directory, exist_ok=True)  # Ensure the directory exists
 
     filename = os.path.join(directory, fname)
