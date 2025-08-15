@@ -54,8 +54,9 @@ for filename in input_files:
             "product_url": entry.get("product_url", ""),
             "original_image_url": f"data/images/original/{current_id}.png",
             "ai_image_url": f"data/images/generated/{current_id}.png",
+            "caption": entry.get("caption", ""),
             "tags": [tag.lower() for tag in entry.get("tags", []) if tag],
-            "description": entry.get("caption", "")
+            "description": entry.get("description", "")
         }
         all_data.append(transformed)
         current_id += 1

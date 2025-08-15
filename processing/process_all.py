@@ -7,6 +7,7 @@ from utils.image_download import download_image
 from utils.crop_images import process_source_images
 from utils.blip_caption import generate_caption
 from utils.clip_tags import generate_tags, design_tags
+from utils.description_generator import generate_descriptions
 
 
 def process_all_for_source(source, prefix="", mode="top10"):
@@ -59,7 +60,7 @@ def process_all_for_source(source, prefix="", mode="top10"):
         
         # BLIP caption + clean
         try:    
-            item["caption"] = generate_caption(img_path)
+            item["caption"] = generate_caption(img_path).strip()
             print(f"✓ Captioned {img_path}: {item['caption']}")
         except Exception as e:
             print(f"❌ Failed BLIP/clean caption for {img_path}: {e}")
@@ -75,6 +76,8 @@ def process_all_for_source(source, prefix="", mode="top10"):
         json.dump(data, f, indent=2, ensure_ascii=False)
     print(f"✅ Captions and tags updated: {processed_json}")
 
+    generate_descriptions(source, processed_json)
+    
 
 def main(mode="top10"):
     prefix = "top10_" if mode=="top10" else ""
