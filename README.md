@@ -66,6 +66,8 @@ deactivate
 
 ## 1️⃣ Web scrape data
 
+Make sure you have a web driver installed, in this case, a chrome driver from https://sites.google.com/chromium.org/driver/ was installed.
+
 In the root folder:
 
 ```bash
@@ -77,3 +79,47 @@ This goes through data/data_sources.json and scrapes data from their websites.
 ---
 
 ## 2️⃣ Processing data
+
+In the root folder:
+
+```bash
+python ./processing/process_all.py all
+```
+
+This goes through the processed scraped data and downloads, crops, captions, tags and creates descriptions for each image.
+
+---
+
+## 3️⃣ Fine tuning the model
+
+In the root folder:
+
+```bash
+python ./training/prepare_dataset.py
+
+python ./training/fine_tune.py
+```
+
+---
+
+## 4️⃣ Scrape and process trendy hoodies
+
+In the root folder:
+
+```bash
+python web-scraping/scrape.py top10
+python ./processing/process_all.py top10
+python ./processing/trendy_captions_cleaner.py
+```
+
+---
+
+## 5️⃣ Generate images
+
+In the root folder:
+
+```bash
+python ./generation/generate_hoodie.py
+```
+
+---
