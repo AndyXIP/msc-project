@@ -6,7 +6,8 @@ from PIL import Image
 from transformers import Blip2Processor, Blip2ForConditionalGeneration
 
 # Device
-device = "cuda" if torch.cuda.is_available() else "cpu"
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+print(f"Using device: {device}")
 
 # Load BLIP-2 (FlanT5 variant for better text quality)
 processor = Blip2Processor.from_pretrained("Salesforce/blip2-opt-2.7b")
