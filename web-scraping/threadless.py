@@ -1,17 +1,21 @@
+import sys
+import time
 from utils.driver_setup import stealth_setup_driver
 from utils.save_data import save_to_json
-
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-import time
 
-def scrape_threadless_hoodies(pages=25): # 48 hoodies per page, 25 for 1200
+
+def scrape_threadless(pages=1, limit=None, headless=False):
     base_url = "https://www.threadless.com/search/?sort=popular&departments=mens&style=pullover-hoody&page={page}"
-    driver = stealth_setup_driver(headless=False)
+    driver = stealth_setup_driver(headless=headless)
     all_results = []
 
     for page in range(1, pages + 1):
+        if limit and len(all_results) >= limit:
+            break
+
         url = base_url.format(page=page)
         print(f"Scraping Threadless page {page}: {url}")
         driver.get(url)
@@ -34,6 +38,9 @@ def scrape_threadless_hoodies(pages=25): # 48 hoodies per page, 25 for 1200
         product_cards = driver.find_elements(By.CSS_SELECTOR, 'div.grid-item')
 
         for card in product_cards:
+            if limit and len(all_results) >= limit:
+                break
+
             try:
                 link_elem = card.find_element(By.CSS_SELECTOR, 'a.pjax-link.media-image.discover-as-product-linkback-mc')
                 product_url = link_elem.get_attribute("href")
@@ -66,9 +73,21 @@ def scrape_threadless_hoodies(pages=25): # 48 hoodies per page, 25 for 1200
 
 
 def main():
-    data = scrape_threadless_hoodies()
-    print(f"Scraped total {len(data)} hoodies.")
-    save_to_json(data, "threadless.json")
+    mode = sys.argv[1] if len(sys.argv) > 1 else "top10"
+
+    if mode not in ("top10", "all"):
+        print("Usage: python scrape_threadless.py [top10|all]")
+        return
+
+    if mode == "top10":
+        data = scrape_threadless(pages=1, limit=10)
+        save_to_json(data, "top10_threadless.json")
+        print(f"Saved {len(data)} hoodies (top 10)")
+    else:
+        data = scrape_threadless(pages=25) # 48 hoodies per page, 25 for 1200
+        save_to_json(data, "threadless.json")
+        print(f"Saved {len(data)} hoodies (all)")
+
 
 if __name__ == "__main__":
     main()

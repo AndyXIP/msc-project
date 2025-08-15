@@ -1,15 +1,15 @@
+import sys
+import time
 from utils.driver_setup import setup_driver
 from utils.save_data import save_to_json
-
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-import time
 
-def scrape_redbubble_hoodies(pages=10): # 119 hoodies per page, 10 for 1200
+
+def scrape_redbubble(pages=1, limit=None, headless=False): # 119 hoodies per page, 10 for 1200
     base_url = "https://www.redbubble.com/shop?country=GB&iaCode=u-sweatshirts&locale=en&page={page}&sortOrder=trending"
-
-    driver = setup_driver(headless=False)
+    driver = setup_driver(headless=headless)
     all_results = []
 
     for page in range(1, pages + 1):
@@ -17,16 +17,18 @@ def scrape_redbubble_hoodies(pages=10): # 119 hoodies per page, 10 for 1200
         print(f"Scraping page {page}: {url}")
         driver.get(url)
 
-        wait = WebDriverWait(driver, 20)  # wait longer because page loads JS
+        wait = WebDriverWait(driver, 20)
 
-        # Scroll down to trigger lazy loading (scroll 3 times with pause)
+        # Scroll down to trigger lazy loading
         for _ in range(3):
             driver.execute_script("window.scrollBy(0, window.innerHeight);")
             time.sleep(1)
 
         try:
             wait.until(
-                EC.presence_of_element_located((By.CSS_SELECTOR, 'div.styles_box__54ba70e3.SearchResultsGrid_grid__z2G0D'))
+                EC.presence_of_element_located(
+                    (By.CSS_SELECTOR, 'div.styles_box__54ba70e3.SearchResultsGrid_grid__z2G0D')
+                )
             )
         except Exception as e:
             print(f"Timeout waiting for products on page {page}: {e}")
@@ -58,6 +60,12 @@ def scrape_redbubble_hoodies(pages=10): # 119 hoodies per page, 10 for 1200
                     "product_url": product_url,
                     "image_url": image_url
                 })
+
+                # Stop early if limit reached
+                if limit and len(all_results) >= limit:
+                    driver.quit()
+                    return all_results
+
             except Exception as e:
                 print(f"Error parsing product card on page {page}: {e}")
                 continue
@@ -67,9 +75,22 @@ def scrape_redbubble_hoodies(pages=10): # 119 hoodies per page, 10 for 1200
 
 
 def main():
-    hoodies = scrape_redbubble_hoodies()
-    print(f"Found {len(hoodies)} hoodies in total.")
-    save_to_json(hoodies, "redbubble.json")
+    # Get mode from CLI (default to "top10")
+    mode = sys.argv[1] if len(sys.argv) > 1 else "top10"
+
+    if mode not in ("top10", "all"):
+        print("Usage: python scrape_redbubble.py [top10|all]")
+        return
+
+    if mode == "top10":
+        hoodies = scrape_redbubble(pages=1, limit=10)
+        save_to_json(hoodies, "top10_redbubble.json")
+        print(f"Saved {len(hoodies)} hoodies (top 10)")
+    else:
+        hoodies = scrape_redbubble(pages=10)
+        save_to_json(hoodies, "redbubble.json")
+        print(f"Saved {len(hoodies)} hoodies (all)")
+
 
 if __name__ == "__main__":
     main()
