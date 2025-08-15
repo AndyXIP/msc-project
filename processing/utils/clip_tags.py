@@ -7,7 +7,9 @@ from PIL import Image
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'data')))
 from design_tags import design_tags
 
-device = "cuda" if torch.cuda.is_available() else "cpu"
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+print(f"Using device: {device}")
+
 model, preprocess = clip.load("ViT-B/32", device=device)
 
 def generate_tags(image_path, candidate_tags, top_k=5):
