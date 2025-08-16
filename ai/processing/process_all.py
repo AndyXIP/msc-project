@@ -2,7 +2,6 @@ import os
 import sys
 import json
 
-# Import your existing functions
 from utils.image_download import download_image
 from utils.crop_images import process_source_images
 from utils.blip_caption import generate_caption
@@ -13,7 +12,7 @@ from utils.description_generator import generate_descriptions
 def process_all_for_source(source, prefix="", mode="top10"):
     """Run download, crop, BLIP captioning, cleaning, and CLIP tagging for a single source."""
     
-    # 1️⃣ Paths
+    # Setting up paths
     raw_json = os.path.join("data", "raw", f"{prefix}{source}.json")
     processed_json = os.path.join("data", "processed", f"{prefix}{source}.json")
     
@@ -21,7 +20,7 @@ def process_all_for_source(source, prefix="", mode="top10"):
         print(f"⚠ Raw JSON not found for source '{source}': {raw_json}")
         return
     
-    # 2️⃣ Download images (skip if already exists)
+    # Download images (skip if already exists)
     with open(raw_json, "r", encoding="utf-8") as f:
         data = json.load(f)
     
@@ -46,10 +45,10 @@ def process_all_for_source(source, prefix="", mode="top10"):
         json.dump(data, f, indent=2, ensure_ascii=False)
     print(f"✅ Images info saved: {processed_json}")
     
-    # 3️⃣ Crop images
+    # Crop images
     process_source_images(source, processed_json, mode=mode)
     
-    # 4️⃣ BLIP captions + CLIP tagging
+    # BLIP captions + CLIP tagging
     with open(processed_json, "r", encoding="utf-8") as f:
         data = json.load(f)
     
@@ -58,7 +57,7 @@ def process_all_for_source(source, prefix="", mode="top10"):
         if not img_path or not os.path.exists(img_path):
             continue
         
-        # BLIP caption + clean
+        # BLIP caption
         try:    
             item["caption"] = generate_caption(img_path).strip()
             print(f"✓ Captioned {img_path}: {item['caption']}")

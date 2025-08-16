@@ -2,37 +2,32 @@ import json
 import os
 import re
 
-# Folder paths
 input_folder = "data/processed"
 output_file = os.path.join(input_folder, "trendy_captions.json")
 
-# Input filenames
 input_files = [
     "top10_redbubble.json",
     "top10_society6.json",
     "top10_threadless.json"
 ]
 
-# Final list
 all_data = []
 current_id = 1
 
-# Function to convert USD to GBP if price is in USD
+# USD to GBP conversion
 def parse_price(price_str: str) -> str:
-    """
-    Converts USD prices to GBP using a fixed rate (1 USD = 0.82 GBP).
-    Leaves other currencies unchanged.
-    """
+
+    exchange_rate = 0.74
+
     if not price_str:
         return ""
     
     match = re.match(r"\$([\d.,]+)", price_str)
     if match:
         usd = float(match.group(1).replace(",", ""))
-        gbp = round(usd * 0.82, 2)
+        gbp = round(usd * exchange_rate, 2)
         return f"£{gbp}"
     
-    # Keep GBP or other currencies as-is
     return price_str
 
 for filename in input_files:
