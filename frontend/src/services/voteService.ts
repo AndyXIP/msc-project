@@ -11,7 +11,7 @@ export const getVoteData = async (hoodieId: string): Promise<VoteData | null> =>
     .from("Hoodie Votes")
     .select("hoodie_id, votes_original, votes_ai")
     .eq("hoodie_id", hoodieId)
-    .single();
+    .maybeSingle();
 
   if (error) {
     console.error("Error fetching vote data:", error);
@@ -41,7 +41,7 @@ export const incrementVote = async (hoodieId: string, voteType: "original" | "ai
       .from("Hoodie Votes")
       .select("votes_original, votes_ai")
       .eq("hoodie_id", hoodieId)
-      .single();
+      .maybeSingle();
 
     if (fetchError || !currentData) {
       console.error("Error fetching current vote data:", fetchError);

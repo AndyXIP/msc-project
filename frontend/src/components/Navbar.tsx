@@ -17,6 +17,12 @@ export const Navbar = () => {
         </Link>
 
         <div className="flex items-center space-x-4">
+          <Link to="/shop">
+            <Button variant="ghost" className="flex items-center space-x-2">
+              <Shirt className="w-4 h-4" />
+              <span>Shop</span>
+            </Button>
+          </Link>
           <Link to="/results">
             <Button variant="ghost" className="flex items-center space-x-2">
               <TrendingUp className="w-4 h-4" />

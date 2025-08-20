@@ -15,6 +15,14 @@ interface VotingInterfaceProps {
 export const VotingInterface = ({ originalImage, aiImage, hoodieName, hoodieId, onVote }: VotingInterfaceProps) => {
   const [voted, setVoted] = useState<"original" | "ai" | null>(null);
   const [isVoting, setIsVoting] = useState(false);
+  
+  // Randomize which design appears on left vs right
+  const [isOriginalOnLeft] = useState(() => Math.random() < 0.5);
+  
+  const leftImage = isOriginalOnLeft ? originalImage : aiImage;
+  const rightImage = isOriginalOnLeft ? aiImage : originalImage;
+  const leftChoice = isOriginalOnLeft ? "original" : "ai";
+  const rightChoice = isOriginalOnLeft ? "ai" : "original";
 
   const handleVote = async (choice: "original" | "ai") => {
     setIsVoting(true);
@@ -43,13 +51,13 @@ export const VotingInterface = ({ originalImage, aiImage, hoodieName, hoodieId, 
 
   return (
     <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
-      {/* Original Design */}
+      {/* Left Design */}
       <Card className={`overflow-hidden transition-all duration-300 ${
-        voted === "original" ? "ring-2 ring-primary shadow-glow" : "hover:shadow-card"
+        voted === leftChoice ? "ring-2 ring-primary shadow-glow" : "hover:shadow-card"
       }`}>
         <div className="aspect-[3/4] overflow-hidden relative">
           <img
-            src={originalImage}
+            src={leftImage}
             alt={`${hoodieName} - Design A`}
             className="w-full h-full object-cover"
           />
@@ -60,23 +68,23 @@ export const VotingInterface = ({ originalImage, aiImage, hoodieName, hoodieId, 
             A unique design approach with careful attention to detail and style.
           </p>
           <Button
-            onClick={() => handleVote("original")}
+            onClick={() => handleVote(leftChoice)}
             disabled={voted !== null || isVoting}
             className="w-full"
-            variant={voted === "original" ? "default" : "outline"}
+            variant={voted === leftChoice ? "default" : "outline"}
           >
-            {isVoting ? "Recording..." : voted === "original" ? "✓ Voted!" : "Vote for Design A"}
+            {isVoting ? "Recording..." : voted === leftChoice ? "✓ Voted!" : "Vote for Design A"}
           </Button>
         </CardContent>
       </Card>
 
-      {/* AI-Generated Design */}
+      {/* Right Design */}
       <Card className={`overflow-hidden transition-all duration-300 ${
-        voted === "ai" ? "ring-2 ring-primary shadow-glow" : "hover:shadow-card"
+        voted === rightChoice ? "ring-2 ring-primary shadow-glow" : "hover:shadow-card"
       }`}>
         <div className="aspect-[3/4] overflow-hidden relative">
           <img
-            src={aiImage}
+            src={rightImage}
             alt={`${hoodieName} - Design B`}
             className="w-full h-full object-cover"
           />
@@ -87,12 +95,12 @@ export const VotingInterface = ({ originalImage, aiImage, hoodieName, hoodieId, 
             An innovative design approach with modern aesthetics and fresh perspective.
           </p>
           <Button
-            onClick={() => handleVote("ai")}
+            onClick={() => handleVote(rightChoice)}
             disabled={voted !== null || isVoting}
             className="w-full"
-            variant={voted === "ai" ? "default" : "outline"}
+            variant={voted === rightChoice ? "default" : "outline"}
           >
-            {isVoting ? "Recording..." : voted === "ai" ? "✓ Voted!" : "Vote for Design B"}
+            {isVoting ? "Recording..." : voted === rightChoice ? "✓ Voted!" : "Vote for Design B"}
           </Button>
         </CardContent>
       </Card>
