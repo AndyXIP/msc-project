@@ -3,7 +3,8 @@ import os
 import re
 
 input_folder = "data/processed"
-output_file = os.path.join(input_folder, "trendy_captions.json")
+output_folder = "../backend/data"
+output_file = os.path.join(output_folder, "hoodies.json")
 
 input_files = [
     "top10_redbubble.json",
@@ -14,9 +15,11 @@ input_files = [
 all_data = []
 current_id = 1
 
+# Hugging Face dataset base URL
+HF_BASE_URL = "https://huggingface.co/datasets/AndyXIP/generated-hoodies/resolve/main"
+
 # USD to GBP conversion
 def parse_price(price_str: str) -> str:
-
     exchange_rate = 0.74
 
     if not price_str:
@@ -47,8 +50,8 @@ for filename in input_files:
             "artist": entry.get("artist", ""),
             "price": parse_price(entry.get("price", "")),
             "product_url": entry.get("product_url", ""),
-            "original_image_url": f"data/images/original/{current_id}.png",
-            "ai_image_url": f"data/images/generated/{current_id}.png",
+            "original_image_url": f"{HF_BASE_URL}/original/{current_id}.jpg",
+            "ai_image_url": f"{HF_BASE_URL}/generated/{current_id}.png",
             "caption": entry.get("caption", ""),
             "tags": [tag.lower() for tag in entry.get("tags", []) if tag],
             "description": entry.get("description", "")
@@ -57,7 +60,7 @@ for filename in input_files:
         current_id += 1
 
 # Save to trendy_captions.json
-os.makedirs(input_folder, exist_ok=True)
+os.makedirs(output_folder, exist_ok=True)
 with open(output_file, "w", encoding="utf-8") as out_f:
     json.dump(all_data, out_f, indent=2, ensure_ascii=False)
 
