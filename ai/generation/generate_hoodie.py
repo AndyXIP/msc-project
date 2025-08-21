@@ -5,13 +5,15 @@ from diffusers import AutoencoderKL, UNet2DConditionModel
 import os
 import json
 
+# -------------------------------
+# Load the fine-tuned Stable Diffusion model
+# -------------------------------
 def load_model(model_dir="./sd-finetuned-model"):
     print("Loading fine-tuned model...")
     unet = UNet2DConditionModel.from_pretrained(os.path.join(model_dir, "unet"))
     text_encoder = CLIPTextModel.from_pretrained(os.path.join(model_dir, "text_encoder"))
     vae = AutoencoderKL.from_pretrained("runwayml/stable-diffusion-v1-5", subfolder="vae")
     tokenizer = CLIPTokenizer.from_pretrained("runwayml/stable-diffusion-v1-5", subfolder="tokenizer")
-
     scheduler = PNDMScheduler.from_pretrained("runwayml/stable-diffusion-v1-5", subfolder="scheduler")
 
     pipe = StableDiffusionPipeline(
@@ -23,11 +25,15 @@ def load_model(model_dir="./sd-finetuned-model"):
         safety_checker=None,
         feature_extractor=None,
     )
+
     device = "cuda" if torch.cuda.is_available() else "cpu"
     pipe = pipe.to(device)
     print(f"Model loaded on {device}")
     return pipe
 
+# -------------------------------
+# Get next available filename
+# -------------------------------
 def get_next_filename(output_dir):
     os.makedirs(output_dir, exist_ok=True)
     existing_files = [f for f in os.listdir(output_dir) if f.endswith(".png")]
@@ -39,9 +45,21 @@ def get_next_filename(output_dir):
     next_number = max(existing_numbers, default=0) + 1
     return os.path.join(output_dir, f"{next_number}.png")
 
+# -------------------------------
+# Generate a single image
+# -------------------------------
 def generate_image(pipe, prompt, output_path=None, height=512, width=512, guidance_scale=7.5, num_inference_steps=50):
     print(f"Generating image for prompt: {prompt}")
-    image = pipe(prompt, height=height, width=width, guidance_scale=guidance_scale, num_inference_steps=num_inference_steps).images[0]
+    negative_prompt = "text, letters, words, caption, watermark, signature, typography"
+
+    image = pipe(
+        prompt,
+        negative_prompt=negative_prompt,
+        height=height,
+        width=width,
+        guidance_scale=guidance_scale,
+        num_inference_steps=num_inference_steps
+    ).images[0]
 
     if output_path is None:
         output_path = get_next_filename("data/images/generated")
@@ -50,21 +68,33 @@ def generate_image(pipe, prompt, output_path=None, height=512, width=512, guidan
     image.save(output_path)
     print(f"Saved image at {output_path}")
 
+# -------------------------------
+# Batch generate images from a list of prompts
+# -------------------------------
 def batch_generate(pipe, prompts, output_dir="data/images/generated"):
     os.makedirs(output_dir, exist_ok=True)
     for prompt in prompts:
         output_path = get_next_filename(output_dir)
         generate_image(pipe, prompt, output_path)
 
+# -------------------------------
+# Load captions/descriptions from JSON
+# -------------------------------
 def load_captions_from_json(json_path):
     with open(json_path, "r", encoding="utf-8") as f:
         data = json.load(f)
     return [item['description'] for item in data if "description" in item]
 
+# -------------------------------
+# Main execution
+# -------------------------------
 if __name__ == "__main__":
+    # Load model
     pipe = load_model()
 
+    # Load captions from JSON
     json_file_path = "data/processed/trendy_captions.json"
     batch_prompts = load_captions_from_json(json_file_path)
 
+    # Generate images
     batch_generate(pipe, batch_prompts)
