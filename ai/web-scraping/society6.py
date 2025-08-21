@@ -7,7 +7,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 
-def scroll_to_bottom(driver, step=300, pause=0.5):
+def scroll_to_bottom(driver, step=300, pause=0.75):
     driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
     time.sleep(pause)  # wait for content to load after scrolling
     current_scroll = driver.execute_script("return window.pageYOffset;")

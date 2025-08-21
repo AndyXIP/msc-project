@@ -40,7 +40,7 @@ def scrape(mode="top10"):
 
             if mode == "top10":
                 # Only need first page, limit 10 items
-                hoodies = scrape_func(pages=1, limit=10)
+                hoodies = scrape_func(pages=1, limit=20)
             else:
                 # Full scrape using MAX_PAGES for that site
                 max_pages = MAX_PAGES.get(name, 1)
