@@ -1,19 +1,50 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { mockHoodies } from "@/data/mockHoodies";
 import { TrendingUp, TrendingDown, Trophy } from "lucide-react";
+import { useState, useEffect } from "react";
+import { fetchHoodies, processHoodiesData } from "@/services/api";
+import { HoodiePair } from "@/types/hoodie";
 
 const Results = () => {
+  const [hoodies, setHoodies] = useState<HoodiePair[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const loadHoodies = async () => {
+      try {
+        const backendHoodies = await fetchHoodies();
+        const processedHoodies = await processHoodiesData(backendHoodies);
+        setHoodies(processedHoodies);
+      } catch (error) {
+        console.error('Failed to load hoodies:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadHoodies();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="text-center">
+          <h2 className="text-2xl font-bold mb-4 text-foreground">Loading Results...</h2>
+        </div>
+      </div>
+    );
+  }
+
   // Calculate overall statistics
-  const totalVotes = mockHoodies.reduce((acc, hoodie) => 
+  const totalVotes = hoodies.reduce((acc, hoodie) => 
     acc + hoodie.votes.original + hoodie.votes.ai, 0
   );
   
-  const totalOriginalVotes = mockHoodies.reduce((acc, hoodie) => 
+  const totalOriginalVotes = hoodies.reduce((acc, hoodie) => 
     acc + hoodie.votes.original, 0
   );
   
-  const totalAiVotes = mockHoodies.reduce((acc, hoodie) => 
+  const totalAiVotes = hoodies.reduce((acc, hoodie) => 
     acc + hoodie.votes.ai, 0
   );
 
@@ -21,12 +52,12 @@ const Results = () => {
   const aiPercentage = totalVotes > 0 ? (totalAiVotes / totalVotes * 100) : 0;
 
   // Sort hoodies by total votes
-  const sortedHoodies = [...mockHoodies].sort((a, b) => 
+  const sortedHoodies = [...hoodies].sort((a, b) => 
     (b.votes.original + b.votes.ai) - (a.votes.original + a.votes.ai)
   );
 
   // Get top performing hoodies
-  const topOriginal = [...mockHoodies].sort((a, b) => {
+  const topOriginal = [...hoodies].sort((a, b) => {
     const aTotal = a.votes.original + a.votes.ai;
     const bTotal = b.votes.original + b.votes.ai;
     const aPercentage = aTotal > 0 ? (a.votes.original / aTotal) : 0;
@@ -34,7 +65,7 @@ const Results = () => {
     return bPercentage - aPercentage;
   })[0];
 
-  const topAi = [...mockHoodies].sort((a, b) => {
+  const topAi = [...hoodies].sort((a, b) => {
     const aTotal = a.votes.original + a.votes.ai;
     const bTotal = b.votes.original + b.votes.ai;
     const aPercentage = aTotal > 0 ? (a.votes.ai / aTotal) : 0;
@@ -109,16 +140,16 @@ const Results = () => {
             </CardHeader>
             <CardContent className="flex items-center space-x-4">
               <img
-                src={topOriginal.originalImage}
-                alt={topOriginal.name}
+                src={topOriginal?.original_image_url}
+                alt={topOriginal?.name}
                 className="w-20 h-24 object-cover rounded-lg"
               />
               <div>
-                <h3 className="text-xl font-bold text-foreground">{topOriginal.name}</h3>
-                <p className="text-muted-foreground">{topOriginal.description}</p>
+                <h3 className="text-xl font-bold text-foreground">{topOriginal?.name}</h3>
+                <p className="text-muted-foreground">{topOriginal?.description}</p>
                 <div className="mt-2">
                   <Badge variant="secondary">
-                    {((topOriginal.votes.original / (topOriginal.votes.original + topOriginal.votes.ai)) * 100).toFixed(1)}% prefer original
+                    {topOriginal ? ((topOriginal.votes.original / (topOriginal.votes.original + topOriginal.votes.ai)) * 100).toFixed(1) : 0}% prefer original
                   </Badge>
                 </div>
               </div>
@@ -134,16 +165,16 @@ const Results = () => {
             </CardHeader>
             <CardContent className="flex items-center space-x-4">
               <img
-                src={topAi.aiImage}
-                alt={`${topAi.name} - AI`}
+                src={topAi?.ai_image_url}
+                alt={`${topAi?.name} - AI`}
                 className="w-20 h-24 object-cover rounded-lg"
               />
               <div>
-                <h3 className="text-xl font-bold text-foreground">{topAi.name}</h3>
-                <p className="text-muted-foreground">{topAi.description}</p>
+                <h3 className="text-xl font-bold text-foreground">{topAi?.name}</h3>
+                <p className="text-muted-foreground">{topAi?.description}</p>
                 <div className="mt-2">
                   <Badge variant="secondary">
-                    {((topAi.votes.ai / (topAi.votes.original + topAi.votes.ai)) * 100).toFixed(1)}% prefer AI
+                    {topAi ? ((topAi.votes.ai / (topAi.votes.original + topAi.votes.ai)) * 100).toFixed(1) : 0}% prefer AI
                   </Badge>
                 </div>
               </div>
@@ -168,7 +199,7 @@ const Results = () => {
                     <div className="flex items-center justify-between mb-4">
                       <div className="flex items-center space-x-4">
                         <img
-                          src={hoodie.originalImage}
+                          src={hoodie.original_image_url}
                           alt={hoodie.name}
                           className="w-16 h-20 object-cover rounded-lg"
                         />
@@ -177,7 +208,7 @@ const Results = () => {
                           <p className="text-muted-foreground">{total} total votes</p>
                         </div>
                       </div>
-                      <Badge variant="outline">${hoodie.price}</Badge>
+                      <Badge variant="outline">{hoodie.price}</Badge>
                     </div>
 
                     <div className="space-y-3">

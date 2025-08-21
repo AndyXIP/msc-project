@@ -133,9 +133,8 @@ const Shop = () => {
 
                 <Button 
                   className="w-full" 
-                  onClick={() => window.open(hoodie.product_url, '_blank')}
+                  onClick={() => window.location.href = `/product/${hoodie.id}`}
                 >
-                  <ExternalLink className="w-4 h-4 mr-2" />
                   View Product
                 </Button>
               </CardContent>

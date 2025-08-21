@@ -11,13 +11,17 @@ interface HoodieCardProps {
 export const HoodieCard = ({ hoodie }: HoodieCardProps) => {
   const totalVotes = hoodie.votes.original + hoodie.votes.ai;
   const originalPercentage = totalVotes > 0 ? Math.round((hoodie.votes.original / totalVotes) * 100) : 0;
+  
+  // Randomly choose between original and AI image for display
+  const showOriginal = Math.random() < 0.5;
+  const displayImage = showOriginal ? hoodie.original_image_url : hoodie.ai_image_url;
 
   return (
     <Link to={`/hoodie/${hoodie.id}`} className="group">
       <Card className="overflow-hidden transition-all duration-300 hover:shadow-glow hover:scale-105 bg-card border-border">
         <div className="aspect-[3/4] overflow-hidden">
           <img
-            src={hoodie.original_image_url}
+            src={displayImage}
             alt={hoodie.name}
             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
           />
