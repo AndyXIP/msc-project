@@ -1,10 +1,33 @@
 import json
 import os
 import sys
+import io
+import requests
+import numpy as np
+import inspect
+
 from redbubble import scrape_redbubble
 from society6 import scrape_society6
 from threadless import scrape_threadless
 from utils.save_data import save_to_json
+
+# ------------- OCR setup (GPU if available) -------------
+try:
+    import torch
+    GPU_AVAILABLE = torch.cuda.is_available()
+except Exception:
+    GPU_AVAILABLE = False
+
+import easyocr
+from PIL import Image
+
+READER = easyocr.Reader(['en'], gpu=GPU_AVAILABLE)
+HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; no-text-scraper/1.0)"}
+HTTP_TIMEOUT = 12
+MIN_SIDE = 128      # skip tiny icons/thumbnails
+MIN_CHARS = 3       # >= MIN_CHARS characters => treat as "has text"
+TOP10_KEEP_LIMIT = 10
+# --------------------------------------------------------
 
 SCRAPE_FUNCTIONS = {
     "redbubble": scrape_redbubble,
@@ -13,47 +36,116 @@ SCRAPE_FUNCTIONS = {
 }
 
 MAX_PAGES = {
-    "redbubble": 10,   # 119 hoodies/page, 10 pages ≈ 1200 hoodies
-    "society6": 21,    # 30 hoodies/page, 21 pages max
-    "threadless": 25,  # 48 hoodies/page, 25 pages ≈ 1200 hoodies
+    "redbubble": 10,   # 119/page
+    "society6": 21,    # 30/page
+    "threadless": 25,  # 48/page
 }
+
+def fetch_image_from_url(url: str):
+    """Return PIL.Image (RGB) or None on failure."""
+    try:
+        r = requests.get(url, headers=HEADERS, timeout=HTTP_TIMEOUT)
+        r.raise_for_status()
+        return Image.open(io.BytesIO(r.content)).convert("RGB")
+    except Exception:
+        return None
+
+def too_small(img: Image.Image, min_side=MIN_SIDE) -> bool:
+    w, h = img.size
+    return min(w, h) < min_side
+
+def has_text_in_image(img: Image.Image, min_chars=MIN_CHARS) -> bool:
+    """Use EasyOCR to detect any text in a PIL image."""
+    try:
+        arr = np.array(img)
+        results = READER.readtext(arr)
+        extracted = " ".join([t[1] for t in results]).strip()
+        return len(extracted) >= min_chars
+    except Exception:
+        # fail-safe: don't over-filter on OCR errors
+        return False
+
+def supports_start_page(func):
+    try:
+        return "start_page" in inspect.signature(func).parameters
+    except Exception:
+        return False
 
 def scrape(mode="top10"):
     if mode not in ("all", "top10"):
         print("Usage: python scrape.py [top10|all]")
         sys.exit(1)
 
+    print(f"EasyOCR GPU available: {GPU_AVAILABLE}")
     filename_prefix = "" if mode == "all" else "top10_"
 
     data_sources_path = os.path.join(os.path.dirname(__file__), "..", "data", "data_sources.json")
-    
-    with open(data_sources_path, "r") as f:
+    with open(data_sources_path, "r", encoding="utf-8") as f:
         source_names = json.load(f)
 
-    total_hoodies_count = 0
+    total_count = 0
 
     for name in source_names:
         scrape_func = SCRAPE_FUNCTIONS.get(name)
-
-        if scrape_func:
-            print(f"Scraping {name} ({mode})...")
-
-            if mode == "top10":
-                # Only need first page, limit 10 items
-                hoodies = scrape_func(pages=1, limit=20)
-            else:
-                # Full scrape using MAX_PAGES for that site
-                max_pages = MAX_PAGES.get(name, 1)
-                hoodies = scrape_func(pages=max_pages)
-
-            save_to_json(hoodies, f"{filename_prefix}{name}.json")
-            print(f"Saved {len(hoodies)} hoodies from {name}")
-            total_hoodies_count += len(hoodies)
-        else:
+        if not scrape_func:
             print(f"No scraper function defined for '{name}'")
-    
-    print(f"Saved a total of {total_hoodies_count} hoodies ({mode})")
+            continue
 
+        print(f"\nScraping {name} ({mode})...")
+        max_pages = MAX_PAGES.get(name, 1)
+
+        # Only Threadless should be non-headless
+        this_headless = (name != "threadless")
+
+        if mode == "top10":
+            collected = []
+            has_start = supports_start_page(scrape_func)
+            prev_cum_len = 0  # used when start_page isn't supported
+
+            # Walk pages until we have 10 no-text items
+            for page in range(1, max_pages + 1):
+                if len(collected) >= TOP10_KEEP_LIMIT:
+                    break
+
+                if has_start:
+                    # Fetch exactly one page
+                    batch = scrape_func(pages=1, limit=None, headless=this_headless, start_page=page)
+                    page_items = batch
+                else:
+                    # Fallback for scrapers without start_page (e.g., original threadless)
+                    cumulative = scrape_func(pages=page, limit=None, headless=this_headless)
+                    page_items = cumulative[prev_cum_len:]
+                    prev_cum_len = len(cumulative)
+
+                print(f"- Pulled {len(page_items)} items from {name} page {page}. Running OCR filter...")
+
+                for item in page_items:
+                    if len(collected) >= TOP10_KEEP_LIMIT:
+                        break
+                    url = item.get("image_url")
+                    if not url:
+                        continue
+                    img = fetch_image_from_url(url)
+                    if img is None:
+                        continue
+                    if too_small(img):
+                        continue
+                    if has_text_in_image(img):
+                        continue
+                    collected.append(item)
+
+            save_to_json(collected, f"{filename_prefix}{name}.json")
+            print(f"- Saved {len(collected)} no-text item(s) from {name}")
+            total_count += len(collected)
+
+        else:
+            # ALL mode: NO OCR (keep all for training)
+            items = scrape_func(pages=max_pages, headless=this_headless)
+            save_to_json(items, f"{filename_prefix}{name}.json")
+            print(f"- Saved {len(items)} item(s) from {name} (no OCR in 'all')")
+            total_count += len(items)
+
+    print(f"\nSaved a total of {total_count} item(s) ({mode})")
 
 if __name__ == "__main__":
     mode = sys.argv[1] if len(sys.argv) > 1 else "top10"

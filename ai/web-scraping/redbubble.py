@@ -7,12 +7,25 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 
-def scrape_redbubble(pages=1, limit=None, headless=False): # 119 hoodies per page, 10 for 1200
-    base_url = "https://www.redbubble.com/shop?country=GB&iaCode=u-sweatshirts&locale=en&page={page}&sortOrder=trending"
+def scrape_redbubble(pages=1, limit=None, headless=False, start_page=1):  # <-- added start_page
+    """
+    Scrape Redbubble hoodie listings.
+
+    Args:
+        pages (int): number of pages to scrape starting from `start_page`.
+        limit (int|None): stop early after collecting this many items.
+        headless (bool): run browser headless.
+        start_page (int): FIRST page number to scrape (default 1).
+    """
+    base_url = (
+        "https://www.redbubble.com/shop"
+        "?country=GB&iaCode=u-sweatshirts&locale=en&page={page}&sortOrder=trending"
+    )
     driver = setup_driver(headless=headless)
     all_results = []
 
-    for page in range(1, pages + 1):
+    # iterate from start_page up to start_page + pages - 1
+    for page in range(start_page, start_page + pages):
         url = base_url.format(page=page)
         print(f"Scraping page {page}: {url}")
         driver.get(url)
@@ -83,11 +96,11 @@ def main():
         return
 
     if mode == "top10":
-        hoodies = scrape_redbubble(pages=1, limit=10)
+        hoodies = scrape_redbubble(pages=1, limit=10, start_page=1, headless=True)  # now explicit
         save_to_json(hoodies, "top10_redbubble.json")
         print(f"Saved {len(hoodies)} hoodies (top 10)")
     else:
-        hoodies = scrape_redbubble(pages=10)
+        hoodies = scrape_redbubble(pages=10, start_page=1, headless=True)
         save_to_json(hoodies, "redbubble.json")
         print(f"Saved {len(hoodies)} hoodies (all)")
 

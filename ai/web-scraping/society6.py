@@ -18,13 +18,23 @@ def scroll_to_bottom(driver, step=300, pause=0.75):
         current_scroll = new_scroll
 
 
-def scrape_society6(pages=1, limit=None, headless=False): # 30 per page, 21 pages max
+def scrape_society6(pages=1, limit=None, headless=False, start_page=1):  # <-- added start_page
+    """
+    Scrape Society6 hoodie listings.
+
+    Args:
+        pages (int): number of pages to scrape starting from start_page
+        limit (int|None): stop early if total items reaches this
+        headless (bool): run Selenium in headless mode
+        start_page (int): first page number to scrape (default 1)
+    """
     base_url = "https://society6.com/collections/hoodies?page={page}"
     driver = setup_driver(headless=headless)
     wait = WebDriverWait(driver, 20)
     all_results = []
 
-    for page in range(1, pages + 1):
+    # loop now starts at start_page and runs for `pages` pages
+    for page in range(start_page, start_page + pages):
         url = base_url.format(page=page)
         print(f"Scraping Society6 page {page}: {url}")
         driver.get(url)
@@ -62,7 +72,6 @@ def scrape_society6(pages=1, limit=None, headless=False): # 30 per page, 21 page
                     "image_url": image_url
                 })
 
-                # Stop early if limit reached
                 if limit and len(all_results) >= limit:
                     driver.quit()
                     return all_results
@@ -83,11 +92,11 @@ def main():
         return
 
     if mode == "top10":
-        data = scrape_society6(pages=1, limit=10)
+        data = scrape_society6(pages=1, limit=10, start_page=1, headless=True)
         save_to_json(data, "top10_society6.json")
         print(f"Saved {len(data)} hoodies (top 10)")
     else:
-        data = scrape_society6(pages=21)  # 21 pages max
+        data = scrape_society6(pages=21, start_page=1, headless=True)  # 21 pages max
         save_to_json(data, "society6.json")
         print(f"Saved {len(data)} hoodies (all)")
 
