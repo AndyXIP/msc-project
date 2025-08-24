@@ -1,203 +1,211 @@
 [
   {
     "id": "1",
-    "name": "Mental Health Matters Floral Design Pullover Hoodie",
-    "artist": "AIDcares",
-    "price": "£29.57",
-    "product_url": "https://www.redbubble.com/i/hoodie/Mental-Health-Matters-Floral-Design-by-AIDcares/172888923.I00K8",
+    "name": "Aura Bunnies Zipped Hoodie",
+    "artist": "Lydia.Create",
+    "price": "£43.91",
+    "product_url": "https://www.redbubble.com/i/hoodie/Aura-Bunnies-by-lydiagif/173035116.BN4XF",
     "original_image_url": "https://huggingface.co/datasets/AndyXIP/generated-hoodies/resolve/main/original/1.jpg",
     "ai_image_url": "https://huggingface.co/datasets/AndyXIP/generated-hoodies/resolve/main/generated/1.png",
-    "caption": "a pink hoodie with the words 'prevent of health problems'",
+    "caption": "two mice in a purple and orange striped zip hoodie",
     "tags": [
-      "floral",
-      "pastel pink",
+      "bold colors",
+      "animals",
+      "vector art",
+      "graphic design",
+      "silhouette",
       "nature-inspired",
-      "pink",
-      "minimalistic",
-      "light tones",
-      "graphic design"
+      "purple"
     ],
-    "description": "A hoodie design from redbubble by AIDcares, featuring a pink hoodie with the words 'prevent of health problems'. Style: floral, pastel pink, nature-inspired."
+    "description": "A hoodie design featuring Two symmetrical bunny silhouettes in orange and purple, dripping and merging in a bold, painterly style.",
+    "sd_prompt": "Two symmetrical bunny silhouettes facing each other, one orange and one purple, merging with dripping painterly edges, centered chest graphic, clean silhouette with expressive strokes, no background, screenprint/vector-friendly look, bold and fluid. style: painterly, fluid abstraction. color palette: orange and purple contrast. lighting: soft studio. resolution: 4k."
   },
   {
     "id": "2",
-    "name": "Marked Safe From Being Passed by a Production Boat Pullover Hoodie",
-    "artist": "FishingNation",
-    "price": "£30.87",
-    "product_url": "https://www.redbubble.com/i/hoodie/Marked-Safe-From-Being-Passed-by-a-Production-Boat-by-FishingNation/172843920.3BRSE",
+    "name": "You asleep yet? Lightweight Hoodie",
+    "artist": "lauragraves",
+    "price": "£35.91",
+    "product_url": "https://www.redbubble.com/i/hoodie/You-asleep-yet-by-lauragraves/14359250.GQV8B",
     "original_image_url": "https://huggingface.co/datasets/AndyXIP/generated-hoodies/resolve/main/original/2.jpg",
     "ai_image_url": "https://huggingface.co/datasets/AndyXIP/generated-hoodies/resolve/main/generated/2.png",
-    "caption": "marked safe from being passed by a production boat hoodie",
+    "caption": "a cat in a triangle lightweight hoodie",
     "tags": [
-      "navy",
-      "logo design",
+      "grayscale",
+      "gray",
+      "geometric shapes",
+      "trendy",
       "graphic design",
-      "bold",
       "hand-drawn",
-      "artwork",
-      "detailed"
+      "pop art"
     ],
-    "description": "A hoodie design from redbubble by FishingNation, featuring marked safe from being passed by a production boat hoodie. Style: navy, logo design, graphic design."
+    "description": "A hoodie design featuring Cat in a triangle.",
+    "sd_prompt": "Curious tabby kitten peeking from behind a geometric triangle frame, centered chest graphic, clean silhouette, high contrast, vector-style layout, no background, screenprint look, minimalist and playful. style: minimalistic, line art. color palette: black and white. lighting: soft studio. resolution: 4k."
   },
   {
     "id": "3",
-    "name": "“Sit pretty, speak loud” Pullover Sweatshirt",
-    "artist": "NotJustAcrylic",
-    "price": "£25.28",
-    "product_url": "https://www.redbubble.com/i/sweatshirt/Sit-pretty-speak-loud-by-NotJustAcrylic/172846758.7PZBN",
+    "name": "Many Lands Under One Sun Zipped Hoodie",
+    "artist": "thepapercrane",
+    "price": "£44.65",
+    "product_url": "https://www.redbubble.com/i/hoodie/Many-Lands-Under-One-Sun-by-thepapercrane/22317419.BN4XF",
     "original_image_url": "https://huggingface.co/datasets/AndyXIP/generated-hoodies/resolve/main/original/3.jpg",
     "ai_image_url": "https://huggingface.co/datasets/AndyXIP/generated-hoodies/resolve/main/generated/3.png",
-    "caption": "a sweatshirt with a drawing of a cat and a quote",
+    "caption": "a black hoodie with a colorful design on it",
     "tags": [
-      "hand-drawn",
-      "nature-inspired",
-      "trendy",
-      "graphic design",
+      "space",
       "psychedelic",
-      "pop culture",
-      "monochrome"
+      "colorful",
+      "chalk",
+      "bright colors",
+      "sci-fi",
+      "gradient"
     ],
-    "description": "A hoodie design from redbubble by NotJustAcrylic, featuring a sweatshirt with a drawing of a cat and a quote. Style: hand-drawn, nature-inspired, trendy."
+    "description": "A hoodie design featuring Five minimalist suns aligned diagonally across layered abstract landscapes, creating a bold geometric composition.",
+    "sd_prompt": "Five minimalist suns aligned diagonally across layered abstract landscapes, centered chest graphic, crisp silhouette, high contrast, vector-style layout, no background, screenprint look, geometric and clean composition. style: minimalist, geometric. color palette: warm orange, golden yellow, teal, and dark neutrals. lighting: soft studio. resolution: 4k."
   },
   {
     "id": "4",
-    "name": "Veronica white outline version Lightweight Sweatshirt",
-    "artist": "The Odd Penguin",
-    "price": "£24.93",
-    "product_url": "https://www.redbubble.com/i/sweatshirt/Veronica-white-outline-version-by-ThePenguin123/172837393.NUC7A",
+    "name": "astronauts in love Zipped Hoodie",
+    "artist": "DrugEuphoria",
+    "price": "£43.91",
+    "product_url": "https://www.redbubble.com/i/hoodie/astronauts-in-love-by-DrugEuphoria/172743286.689X7",
     "original_image_url": "https://huggingface.co/datasets/AndyXIP/generated-hoodies/resolve/main/original/4.jpg",
     "ai_image_url": "https://huggingface.co/datasets/AndyXIP/generated-hoodies/resolve/main/generated/4.png",
-    "caption": "a cartoon character with green eyes on a grey sweatshirt",
+    "caption": "the astronaut sweatshirt",
     "tags": [
-      "grayscale",
-      "mascot",
-      "comic style",
-      "edgy",
-      "vector art",
+      "artwork",
+      "space",
+      "futuristic",
+      "navy",
+      "experimental",
       "graphic design",
-      "monochrome"
+      "abstract"
     ],
-    "description": "A hoodie design from redbubble by The Odd Penguin, featuring a cartoon character with green eyes on a grey sweatshirt. Style: grayscale, mascot, comic style."
+    "description": "A hoodie design featuring two astronauts meeting in space, embracing in a soft, glowing moment that blends romantic sci-fi imagery with ethereal charm.",
+    "sd_prompt": "Two astronauts floating face-to-face in space as they gently embrace, glowing helmet visors, soft surrounding stars, centered chest graphic, clean silhouette, high contrast, vector-friendly layout, no background, screenprint style, romantic sci-fi. style: minimalistic, anime, sci-fi. color palette: soft glow, dark space tones. lighting: soft studio. resolution: 4k."
   },
   {
     "id": "5",
-    "name": "Capitol Hill High School Round Up Club Pullover Sweatshirt",
-    "artist": "Badrobot1976",
-    "price": "£23.60",
-    "product_url": "https://www.redbubble.com/i/sweatshirt/Capitol-Hill-High-School-Round-Up-Club-by-Badrobot1976/172837848.73735",
+    "name": "Black Tip Reef Shark! Pullover Sweatshirt",
+    "artist": "MF5art",
+    "price": "£33.71",
+    "product_url": "https://www.redbubble.com/i/sweatshirt/Black-Tip-Reef-Shark-by-MF5art/172791666.XWL6H",
     "original_image_url": "https://huggingface.co/datasets/AndyXIP/generated-hoodies/resolve/main/original/5.jpg",
     "ai_image_url": "https://huggingface.co/datasets/AndyXIP/generated-hoodies/resolve/main/generated/5.png",
-    "caption": "capitol hill high round up club sweatshirt",
+    "caption": "a white hoodie with a drawing of a shark",
     "tags": [
-      "graphic design",
-      "symbol",
-      "logo design",
-      "cool",
-      "mascot",
+      "lettering",
       "hand-drawn",
-      "vintage"
+      "sharp",
+      "brush strokes",
+      "stencil",
+      "navy"
     ],
-    "description": "A hoodie design from redbubble by Badrobot1976, featuring capitol hill high round up club sweatshirt. Style: graphic design, symbol, logo design."
+    "description": "A hoodie design featuring a Black Tip Reef Shark in smooth, flowing motion, rendered as a bold silhouette ideal for striking graphic appeal.",
+    "sd_prompt": "Black Tip Reef Shark mid-swim, sleek silhouette in motion, centered chest graphic, clean edges, high contrast, vector-friendly lines, no background, screenprint-ready style. style: minimalistic, symbol. color palette: gray tones, black. lighting: soft studio. resolution: 4k."
   },
   {
     "id": "6",
+    "name": "Music Man Lightweight Hoodie",
+    "artist": "Krydel",
+    "price": "£35.91",
+    "product_url": "https://www.redbubble.com/i/hoodie/Music-Man-by-Krydel/7237433.GQV8B",
+    "original_image_url": "https://huggingface.co/datasets/AndyXIP/generated-hoodies/resolve/main/original/6.jpg",
+    "ai_image_url": "https://huggingface.co/datasets/AndyXIP/generated-hoodies/resolve/main/generated/6.png",
+    "caption": "a cartoon character wearing headphones on his head hoodies - men's premium hoodie",
+    "tags": [
+      "line art",
+      "cartoon characters",
+      "character design",
+      "mascot",
+      "hand-drawn",
+      "space",
+      "minimalistic"
+    ],
+    "description": "A hoodie design featuring a playful cartoon face wearing oversized headphones, rendered in crisp line art with a minimalist, music-centric vibe.",
+    "sd_prompt": "Playful cartoon face wearing oversized headphones, centered chest graphic, clean line art silhouette, high contrast, vector-friendly screenprint style, no background, balanced composition, subtle musical vibe. style: minimalistic, line art, cartoon. color palette: black and white (optional single accent). lighting: soft studio. resolution: 4k."
+  },
+  {
+    "id": "7",
+    "name": "Watermelon Palestine - Dark Pullover Hoodie",
+    "artist": "DreamEngine",
+    "price": "£42.16",
+    "product_url": "https://www.redbubble.com/i/hoodie/Watermelon-Palestine-Dark-by-DreamEngine/87939369.VY21C",
+    "original_image_url": "https://huggingface.co/datasets/AndyXIP/generated-hoodies/resolve/main/original/7.jpg",
+    "ai_image_url": "https://huggingface.co/datasets/AndyXIP/generated-hoodies/resolve/main/generated/7.png",
+    "caption": "the watermelon is the symbol of the palestinian flag lightweight hoodie",
+    "tags": [
+      "futuristic",
+      "edgy",
+      "sharp",
+      "icon",
+      "trendy",
+      "graphic design",
+      "cool"
+    ],
+    "description": "A hoodie design featuring the silhouette of Palestine rendered as a watermelon slice in flag-inspired red, green, white, and black—a bold symbol of cultural pride.",
+    "sd_prompt": "Silhouette of Palestine shaped as a watermelon slice, featuring flag colors (red, green, white, black), centered chest graphic, clean silhouette, high contrast, vector-friendly screenprint style, no background, symbolic and bold. style: symbol, minimalistic. color palette: red, green, white, black. lighting: soft studio. resolution: 4k."
+  },
+  {
+    "id": "8",
+    "name": "Soot studio ghibli Pullover Sweatshirt",
+    "artist": "LucieBeeArt",
+    "price": "£35.93",
+    "product_url": "https://www.redbubble.com/i/sweatshirt/Soot-studio-ghibli-by-LucieBeeArt/153476152.7PZBN",
+    "original_image_url": "https://huggingface.co/datasets/AndyXIP/generated-hoodies/resolve/main/original/8.jpg",
+    "ai_image_url": "https://huggingface.co/datasets/AndyXIP/generated-hoodies/resolve/main/generated/8.png",
+    "caption": "two cute little monsters on a white sweatshirt",
+    "tags": [
+      "trendy",
+      "floral",
+      "psychedelic",
+      "graphic design",
+      "nature-inspired",
+      "cartoon characters",
+      "minimalistic"
+    ],
+    "description": "A hoodie design featuring two whimsical soot sprites holding pastel stars, rendered in playful cartoon style with a clean, airy feel.",
+    "sd_prompt": "Two whimsical soot sprite characters holding pastel-colored stars (one pink, one blue), centered chest graphic, clean cartoon silhouette, high contrast, vector-friendly screenprint style, no background, whimsical and charming. style: cartoon, minimalistic. color palette: pastel pink, pastel blue, black. lighting: soft studio. resolution: 4k."
+  },
+  {
+    "id": "9",
+    "name": "Veronica white outline version Pullover Hoodie",
+    "artist": "The Odd Penguin",
+    "price": "£30.87",
+    "product_url": "https://www.redbubble.com/i/hoodie/Veronica-white-outline-version-by-ThePenguin123/172837393.VR8OC",
+    "original_image_url": "https://huggingface.co/datasets/AndyXIP/generated-hoodies/resolve/main/original/9.jpg",
+    "ai_image_url": "https://huggingface.co/datasets/AndyXIP/generated-hoodies/resolve/main/generated/9.png",
+    "caption": "a cartoon face with green eyes on a white hoodie",
+    "tags": [
+      "mascot",
+      "cartoon characters",
+      "grayscale",
+      "trendy",
+      "hand-drawn",
+      "character design",
+      "graphic design"
+    ],
+    "description": "A hoodie design featuring a minimalist white outline portrait of a face with expressive, simplified line details, creating a moody and emotive look.",
+    "sd_prompt": "Minimalist portrait outlined in white lines on dark background, centered chest graphic, clean silhouette, high contrast, vector/screenprint friendly, no background, emotionally expressive. style: minimalistic, line art. color palette: white on dark. lighting: soft studio. resolution: 4k."
+  },
+  {
+    "id": "10",
     "name": "Adabiis -xs'yaana̱ḵ'a̱lmoos Pullover Sweatshirt",
     "artist": "William Bolton",
     "price": "£32.14",
     "product_url": "https://www.redbubble.com/i/sweatshirt/Adabiis-xs-yaana-%E1%B8%B5-a-lmoos-by-Ravendancer24/172836227.WY6W4",
-    "original_image_url": "https://huggingface.co/datasets/AndyXIP/generated-hoodies/resolve/main/original/6.jpg",
-    "ai_image_url": "https://huggingface.co/datasets/AndyXIP/generated-hoodies/resolve/main/generated/6.png",
-    "caption": "a blue sweatshirt with a gold butterfly design",
-    "tags": [
-      "navy",
-      "mascot",
-      "nature-inspired",
-      "blue",
-      "mystical",
-      "trendy",
-      "mythical"
-    ],
-    "description": "A hoodie design from redbubble by William Bolton, featuring a blue sweatshirt with a gold butterfly design. Style: navy, mascot, nature-inspired."
-  },
-  {
-    "id": "7",
-    "name": "Helena Pullover Sweatshirt",
-    "artist": "VENOMHEARTS",
-    "price": "£27.39",
-    "product_url": "https://www.redbubble.com/i/sweatshirt/Helena-by-VENOMHEARTS/172834535.7PZBN",
-    "original_image_url": "https://huggingface.co/datasets/AndyXIP/generated-hoodies/resolve/main/original/7.jpg",
-    "ai_image_url": "https://huggingface.co/datasets/AndyXIP/generated-hoodies/resolve/main/generated/7.png",
-    "caption": "a woman wearing a card with roses on it sweatshirt",
-    "tags": [
-      "graphic design",
-      "floral",
-      "geometric shapes",
-      "pop culture",
-      "pop art",
-      "icon",
-      "trendy"
-    ],
-    "description": "A hoodie design from redbubble by VENOMHEARTS, featuring a woman wearing a card with roses on it sweatshirt. Style: graphic design, floral, geometric shapes."
-  },
-  {
-    "id": "8",
-    "name": "Nissan Z Twinn Turbo Blue Zipped Hoodie",
-    "artist": "vektoranda",
-    "price": "£32.92",
-    "product_url": "https://www.redbubble.com/i/hoodie/Nissan-Z-Twinn-Turbo-Blue-by-vektoranda/172832149.CTBVS",
-    "original_image_url": "https://huggingface.co/datasets/AndyXIP/generated-hoodies/resolve/main/original/8.jpg",
-    "ai_image_url": "https://huggingface.co/datasets/AndyXIP/generated-hoodies/resolve/main/generated/8.png",
-    "caption": "a hoodie with the words twin turbo on it",
-    "tags": [
-      "navy",
-      "cool",
-      "nature-inspired",
-      "graphic design",
-      "detailed",
-      "trendy",
-      "dynamic"
-    ],
-    "description": "A hoodie design from redbubble by vektoranda, featuring a hoodie with the words twin turbo on it. Style: navy, cool, nature-inspired."
-  },
-  {
-    "id": "9",
-    "name": "Simon Henriksson Cry of Fear ver. 2 Zipped Hoodie",
-    "artist": "randomspider",
-    "price": "£30.19",
-    "product_url": "https://www.redbubble.com/i/hoodie/Simon-Henriksson-Cry-of-Fear-ver-2-by-randomspider/149684608.SF8Q5",
-    "original_image_url": "https://huggingface.co/datasets/AndyXIP/generated-hoodies/resolve/main/original/9.jpg",
-    "ai_image_url": "https://huggingface.co/datasets/AndyXIP/generated-hoodies/resolve/main/generated/9.png",
-    "caption": "the freedom hoodie is shown in a grey sweatshirt",
-    "tags": [
-      "lettering",
-      "hand-drawn",
-      "cool",
-      "vintage",
-      "edgy",
-      "typography",
-      "trendy"
-    ],
-    "description": "A hoodie design from redbubble by randomspider, featuring the freedom hoodie is shown in a grey sweatshirt. Style: lettering, hand-drawn, cool."
-  },
-  {
-    "id": "10",
-    "name": "Hummingsong Concert 2025 - Sydney Opera House Lightweight Hoodie",
-    "artist": "Hummingsong Choirs",
-    "price": "£29.17",
-    "product_url": "https://www.redbubble.com/i/hoodie/Hummingsong-Concert-2025-Sydney-Opera-House-by-Hummingsong2025/171881864.Z4UL5",
     "original_image_url": "https://huggingface.co/datasets/AndyXIP/generated-hoodies/resolve/main/original/10.jpg",
     "ai_image_url": "https://huggingface.co/datasets/AndyXIP/generated-hoodies/resolve/main/generated/10.png",
-    "caption": "the hummingbirds are singing lightweight hoodie",
+    "caption": "a blue hoodie with an orange butterfly on it",
     "tags": [
-      "nature-inspired",
-      "minimalistic",
-      "mythical",
-      "mysterious",
-      "logo design",
-      "silhouette",
-      "music"
+      "navy",
+      "graphic design",
+      "sci-fi",
+      "cool",
+      "sports",
+      "blue"
     ],
-    "description": "A hoodie design from redbubble by Hummingsong Choirs, featuring the hummingbirds are singing lightweight hoodie. Style: nature-inspired, minimalistic, mythical."
+    "description": "A hoodie design featuring a traditional formline butterfly motif in bold, symbolic contours—blending Indigenous Northwest Coast art and cultural identity.",
+    "sd_prompt": "Northwest Coast formline butterfly design with bold symbolic contours, centered chest graphic, clean silhouette, high contrast, no background, screenprint-friendly layout. style: minimalistic, symbolic, Indigenous art. color palette: black, red, cream (earth tones). lighting: soft studio. resolution: 4k."
   },
   {
     "id": "11",
@@ -217,7 +225,8 @@
       "music",
       "detailed"
     ],
-    "description": "A hoodie design from society6 by FORGETME, featuring a black hoodie with blue flowers on it. Style: nature-inspired, pastel blue, trendy."
+    "description": "A hoodie design featuring a grid of smiling blue flowers arranged as a playful pattern with clean, graphic petals.",
+    "sd_prompt": "Smiling blue flowers arranged in a repeating grid pattern, centered chest graphic (single tile focus), clean petal shapes, bold outline, high contrast, vector-friendly screenprint style, no background, cheerful and graphic. style: minimalistic, pattern, symbol. color palette: pastel blue, white, black. lighting: soft studio. resolution: 4k."
   },
   {
     "id": "12",
@@ -237,76 +246,17 @@
       "hand-drawn",
       "black"
     ],
-    "description": "A hoodie design from society6 by P HIRST, featuring a white hoodie with a black cat on it. Style: cartoon characters, character design, animals."
+    "description": "A hoodie design featuring a friendly black cat rendered in crisp line art with a clean, minimalist charm.",
+    "sd_prompt": "Friendly black cat in crisp line art, centered chest graphic, clean silhouette, high contrast, vector-friendly screenprint look, no background, simple and uplifting. style: minimalistic, line art, cartoon. color palette: black and white. lighting: soft studio. resolution: 4k."
   },
   {
     "id": "13",
-    "name": "Pond Fishes Hoody",
-    "artist": "RENEA L THULL",
-    "price": "£28.49",
-    "product_url": "https://society6.com/a/products/pond-fish6727085_hoody",
-    "original_image_url": "https://huggingface.co/datasets/AndyXIP/generated-hoodies/resolve/main/original/13.jpg",
-    "ai_image_url": "https://huggingface.co/datasets/AndyXIP/generated-hoodies/resolve/main/generated/13.png",
-    "caption": "a black hoodie with fish on it",
-    "tags": [
-      "animals",
-      "nature-inspired",
-      "typography",
-      "pattern",
-      "illustration",
-      "graphic design",
-      "artwork"
-    ],
-    "description": "A hoodie design from society6 by RENEA L THULL, featuring a black hoodie with fish on it. Style: animals, nature-inspired, typography."
-  },
-  {
-    "id": "14",
-    "name": "Geometric Half Circles Pattern in Earth Tones Hoody",
-    "artist": "APRICOT-BIRCH",
-    "price": "£28.49",
-    "product_url": "https://society6.com/a/products/abstract-half-moon-mountains_hoody",
-    "original_image_url": "https://huggingface.co/datasets/AndyXIP/generated-hoodies/resolve/main/original/14.jpg",
-    "ai_image_url": "https://huggingface.co/datasets/AndyXIP/generated-hoodies/resolve/main/generated/14.png",
-    "caption": "a black hoodie with colorful shapes on it",
-    "tags": [
-      "geometric shapes",
-      "typography",
-      "pattern",
-      "gradient",
-      "chalk",
-      "bright colors",
-      "abstract shapes"
-    ],
-    "description": "A hoodie design from society6 by APRICOT-BIRCH, featuring a black hoodie with colorful shapes on it. Style: geometric shapes, typography, pattern."
-  },
-  {
-    "id": "15",
-    "name": "A Neon Wonderland called Tokyo Hoody",
-    "artist": "HIMANSHISHAH",
-    "price": "£28.49",
-    "product_url": "https://society6.com/a/products/a-neon-wonderland-called-tokyo_hoody",
-    "original_image_url": "https://huggingface.co/datasets/AndyXIP/generated-hoodies/resolve/main/original/15.jpg",
-    "ai_image_url": "https://huggingface.co/datasets/AndyXIP/generated-hoodies/resolve/main/generated/15.png",
-    "caption": "a black hoodie with neon lights and a city street",
-    "tags": [
-      "futuristic",
-      "retro-futurism",
-      "sci-fi",
-      "neon pink",
-      "cool",
-      "glitch art",
-      "anime style"
-    ],
-    "description": "A hoodie design from society6 by HIMANSHISHAH, featuring a black hoodie with neon lights and a city street. Style: futuristic, retro-futurism, sci-fi."
-  },
-  {
-    "id": "16",
     "name": "Cat with ball Hoody",
     "artist": "PICOMODI",
     "price": "£28.49",
     "product_url": "https://society6.com/a/products/cat-with-ball994253_hoody",
-    "original_image_url": "https://huggingface.co/datasets/AndyXIP/generated-hoodies/resolve/main/original/16.jpg",
-    "ai_image_url": "https://huggingface.co/datasets/AndyXIP/generated-hoodies/resolve/main/generated/16.png",
+    "original_image_url": "https://huggingface.co/datasets/AndyXIP/generated-hoodies/resolve/main/original/13.jpg",
+    "ai_image_url": "https://huggingface.co/datasets/AndyXIP/generated-hoodies/resolve/main/generated/13.png",
     "caption": "a white hoodie with an orange cat on it",
     "tags": [
       "cartoon characters",
@@ -320,84 +270,149 @@
     "description": "A hoodie design from society6 by PICOMODI, featuring a white hoodie with an orange cat on it. Style: cartoon characters, minimalistic, character design."
   },
   {
-    "id": "17",
-    "name": "Rabbit Hoody",
-    "artist": "PICOMODI",
+    "id": "14",
+    "name": "Ghost Files Rainbow Flag Hoody",
+    "artist": "WATCHER",
     "price": "£28.49",
-    "product_url": "https://society6.com/a/products/rabbit-94h_hoody",
+    "product_url": "https://society6.com/a/products/ghost-files-rainbow-flag_hoody",
+    "original_image_url": "https://huggingface.co/datasets/AndyXIP/generated-hoodies/resolve/main/original/14.jpg",
+    "ai_image_url": "https://huggingface.co/datasets/AndyXIP/generated-hoodies/resolve/main/generated/14.png",
+    "caption": "a black hoodie with a rainbow colored ghost on it",
+    "tags": [
+      "glitch art",
+      "futuristic",
+      "psychedelic",
+      "music",
+      "abstract",
+      "experimental",
+      "abstract shapes"
+    ],
+    "description": "A hoodie design featuring a playful ghost filled with rainbow stripes, creating a bold, pride-inspired chest graphic.",
+    "sd_prompt": "Playful ghost shape filled with horizontal rainbow stripes, centered chest graphic, clean silhouette, high contrast, vector/screenprint-friendly, no background, bold and celebratory. style: minimalistic, symbol, glitch-inspired. color palette: rainbow on dark. lighting: soft studio. resolution: 4k."
+  },
+  {
+    "id": "15",
+    "name": "Skull Drip Black Ink Hoody",
+    "artist": "HYSTERIA VERVE",
+    "price": "£28.49",
+    "product_url": "https://society6.com/a/products/skull-drip-black-ink_hoody",
+    "original_image_url": "https://huggingface.co/datasets/AndyXIP/generated-hoodies/resolve/main/original/15.jpg",
+    "ai_image_url": "https://huggingface.co/datasets/AndyXIP/generated-hoodies/resolve/main/generated/15.png",
+    "caption": "a black hoodie with a skull on it",
+    "tags": [
+      "edgy",
+      "horror",
+      "pop culture",
+      "ink",
+      "music",
+      "chalk"
+    ],
+    "description": "A hoodie design featuring a stark black-ink skull with dripping details, delivering a gritty, high-contrast punch.",
+    "sd_prompt": "Black-ink skull with dripping edges, centered chest graphic, sharp high-contrast silhouette, no background, screenprint look with grainy ink texture. style: ink, edgy, minimal. color palette: black and white. lighting: soft studio. resolution: 4k."
+  },
+  {
+    "id": "16",
+    "name": "Druid Tree of Life Hoody",
+    "artist": "BRENDA ERICKSON",
+    "price": "£28.49",
+    "product_url": "https://society6.com/a/products/druid-tree-of-life_hoody",
+    "original_image_url": "https://huggingface.co/datasets/AndyXIP/generated-hoodies/resolve/main/original/16.jpg",
+    "ai_image_url": "https://huggingface.co/datasets/AndyXIP/generated-hoodies/resolve/main/generated/16.png",
+    "caption": "a black hoodie with a tree of life design on it",
+    "tags": [
+      "nature-inspired",
+      "nature",
+      "hand-drawn",
+      "monochrome",
+      "psychedelic",
+      "mystical"
+    ],
+    "description": "A hoodie design featuring an intricate Tree of Life emblem with interlaced branches and roots forming a balanced circular motif.",
+    "sd_prompt": "Intricate Tree of Life emblem with interlaced branches and roots in a circular motif, centered chest graphic, clean high-contrast silhouette, no background, screenprint-ready linework, mystical and nature-inspired. style: line art, symbolic, minimal. color palette: white on dark. lighting: soft studio. resolution: 4k."
+  },
+  {
+    "id": "17",
+    "name": "Time To Chill Hoody",
+    "artist": "ANDY WESTFACE",
+    "price": "£28.49",
+    "product_url": "https://society6.com/a/products/time-to-chi_hoody",
     "original_image_url": "https://huggingface.co/datasets/AndyXIP/generated-hoodies/resolve/main/original/17.jpg",
     "ai_image_url": "https://huggingface.co/datasets/AndyXIP/generated-hoodies/resolve/main/generated/17.png",
-    "caption": "a black hoodie with a colorful design on it",
+    "caption": "a black hoodie with a polar bear on it",
     "tags": [
-      "abstract shapes",
-      "abstract",
-      "geometric shapes",
-      "typography",
-      "artwork",
-      "pop art",
-      "psychedelic"
+      "animals",
+      "cartoon characters",
+      "character design",
+      "mythical",
+      "music",
+      "cartoon",
+      "cool"
     ],
-    "description": "A hoodie design from society6 by PICOMODI, featuring a black hoodie with a colorful design on it. Style: abstract shapes, abstract, geometric shapes."
+    "description": "A hoodie design featuring a relaxed polar bear lounging against a simple crescent and stars, evoking a calm, bedtime vibe.",
+    "sd_prompt": "Relaxed polar bear lounging against a crescent with small stars, centered chest graphic, clean silhouette, high contrast, flat shapes, no background, vector-friendly screenprint style, soothing and whimsical. style: minimalistic, cartoon. color palette: cool whites with dark background accents. lighting: soft studio. resolution: 4k."
   },
   {
     "id": "18",
-    "name": "My Favorite Season is the Fall of the Patriarchy Hoody",
-    "artist": "WE DESIGN STUDIOS",
+    "name": "sneaky cat Hoody",
+    "artist": "LAURA GRAVES",
     "price": "£28.49",
-    "product_url": "https://society6.com/a/products/my-favorite-season-is-the-fall-of-the-patriarchy_hoody",
+    "product_url": "https://society6.com/a/products/sneaky-cat_hoody",
     "original_image_url": "https://huggingface.co/datasets/AndyXIP/generated-hoodies/resolve/main/original/18.jpg",
     "ai_image_url": "https://huggingface.co/datasets/AndyXIP/generated-hoodies/resolve/main/generated/18.png",
-    "caption": "a black hoodie with the words 'patriarch' written on it",
+    "caption": "a black hoodie with a cat face on it",
     "tags": [
-      "typography",
-      "pattern",
+      "grayscale",
       "trendy",
-      "graphic design",
-      "logo design",
-      "pixel art",
-      "cool"
+      "animals",
+      "cool",
+      "horror",
+      "chalk",
+      "pop culture"
     ],
-    "description": "A hoodie design from society6 by WE DESIGN STUDIOS, featuring a black hoodie with the words 'patriarch' written on it. Style: typography, pattern, trendy."
+    "description": "A hoodie design featuring a stealthy cat face emerging from the dark with bright eyes and chalky highlights.",
+    "sd_prompt": "Stealthy cat face emerging from darkness with bright eyes, chalky highlights, centered chest graphic, clean high-contrast silhouette, no background, screenprint-friendly. style: grayscale, chalk, minimal. color palette: black, white, subtle gray. lighting: soft studio. resolution: 4k."
   },
   {
     "id": "19",
-    "name": "Horror Kitty Hoody",
-    "artist": "BLINDTHESUN",
+    "name": "Skull and Flowers Hoody",
+    "artist": "BURCU KORKMAZYUREK",
     "price": "£28.49",
-    "product_url": "https://society6.com/a/products/horror-kitty_hoody",
+    "product_url": "https://society6.com/a/products/skull-and-flowers-3dj_hoody",
     "original_image_url": "https://huggingface.co/datasets/AndyXIP/generated-hoodies/resolve/main/original/19.jpg",
     "ai_image_url": "https://huggingface.co/datasets/AndyXIP/generated-hoodies/resolve/main/generated/19.png",
-    "caption": "the horrors of the cat hoodie",
+    "caption": "a black hoodie with a skull and flowers on it",
     "tags": [
-      "mascot",
-      "horror",
-      "badge",
-      "animals",
-      "fantasy creatures",
-      "symbol",
-      "logo design"
+      "floral",
+      "nature-inspired",
+      "psychedelic",
+      "navy",
+      "space",
+      "mystical",
+      "cool"
     ],
-    "description": "A hoodie design from society6 by BLINDTHESUN, featuring the horrors of the cat hoodie. Style: mascot, badge, animals."
+    "description": "A hoodie design featuring an ornate skull entwined with lush flowers, balancing dark elegance with vivid botanical detail.",
+    "sd_prompt": "Ornate skull entwined with lush flowers and leaves, centered chest graphic, clean silhouette with detailed petals, high contrast, no background, screenprint-friendly composition, dark yet elegant. style: floral, baroque linework, minimal background. color palette: off-white skull with vivid floral accents. lighting: soft studio. resolution: 4k."
   },
   {
     "id": "20",
-    "name": "Capybara Universe Hoody",
-    "artist": "ANDY WESTFACE",
+    "name": "Every house has it's own story Hoody",
+    "artist": "ILOVEDOODLE",
     "price": "£28.49",
-    "product_url": "https://society6.com/a/products/capybara-universe_hoody",
+    "product_url": "https://society6.com/a/products/every-house-has-its-own-story_hoody",
     "original_image_url": "https://huggingface.co/datasets/AndyXIP/generated-hoodies/resolve/main/original/20.jpg",
     "ai_image_url": "https://huggingface.co/datasets/AndyXIP/generated-hoodies/resolve/main/generated/20.png",
-    "caption": "a black hoodie with an image of a bear sitting on a planet",
+    "caption": "a white hoodie with a small house on it",
     "tags": [
-      "animals",
-      "space",
-      "hand-drawn",
+      "cartoon characters",
+      "character design",
       "minimalistic",
-      "chalk",
-      "nature-inspired",
-      "pop culture"
+      "white",
+      "music",
+      "modern art",
+      "graphic design"
     ],
-    "description": "A hoodie design from society6 by ANDY WESTFACE, featuring a black hoodie with an image of a bear sitting on a planet. Style: animals, space, hand-drawn."
+    "description": "A hoodie design featuring a tiny, hand-drawn house with a friendly face and simple lines, radiating quiet charm.",
+    "sd_prompt": "Tiny hand-drawn house with a friendly face and simple lines, centered chest graphic, clean silhouette, high contrast, no background, vector-friendly screenprint style, gentle and whimsical. style: minimalistic, cartoon. color palette: light neutrals with a small warm accent. lighting: soft studio. resolution: 4k."
   },
   {
     "id": "21",
@@ -410,54 +425,57 @@
     "caption": "the great wave hoodie",
     "tags": [
       "nature-inspired",
-      "navy",
-      "minimalistic",
       "gradient",
+      "minimalistic",
       "space",
-      "nature",
-      "futuristic"
+      "pastel pink",
+      "navy",
+      "sci-fi"
     ],
-    "description": "A hoodie design from threadless by vincenttrinidad, featuring the great wave hoodie. Style: nature-inspired, navy, minimalistic."
+    "description": "A hoodie design featuring a stylized great wave reimagined with retro sunset gradients and clean geometric curves.",
+    "sd_prompt": "Stylized great wave reimagined with retro sunset gradient disk and clean geometric curves, centered chest graphic, high contrast, vector-friendly, no background, screenprint look, nostalgic yet minimal. style: minimalistic, synthwave, nature-inspired. color palette: magenta-to-orange gradient with dark sea. lighting: soft studio. resolution: 4k."
   },
   {
     "id": "22",
-    "name": "Ghost Of Disapproval",
-    "artist": "obinsun",
-    "price": "£31.78",
-    "product_url": "https://www.threadless.com/shop/@threadless/design/ghost-of-disapproval/mens/pullover-hoody/classic-fleece?color=sky_blue&variation=front#m",
+    "name": "Funkalicious",
+    "artist": "Fen",
+    "price": "£45.1",
+    "product_url": "https://www.threadless.com/shop/@threadless/design/funkalicious/mens/pullover-hoody/sponge-fleece?color=heather_graphite&variation=front#m",
     "original_image_url": "https://huggingface.co/datasets/AndyXIP/generated-hoodies/resolve/main/original/22.jpg",
     "ai_image_url": "https://huggingface.co/datasets/AndyXIP/generated-hoodies/resolve/main/generated/22.png",
-    "caption": "a blue hoodie with a ghost holding up a sign that says boo",
+    "caption": "an astronaut with a camera and rainbow on his back hoodie",
     "tags": [
-      "mascot",
-      "hand-drawn",
-      "horror",
-      "muted",
-      "manga",
+      "space",
+      "sci-fi",
+      "grayscale",
       "cool",
-      "edgy"
+      "psychedelic",
+      "pop culture",
+      "mascot"
     ],
-    "description": "A hoodie design from threadless by obinsun, featuring a blue hoodie with a ghost holding up a sign that says boo. Style: mascot, hand-drawn, horror."
+    "description": "A hoodie design featuring a funky astronaut with a retro camera and a rainbow trail, mixing space vibes with playful color.",
+    "sd_prompt": "Funky astronaut holding a retro camera with a rainbow trail behind, centered chest graphic, clean silhouette, high contrast, vector/screenprint-friendly, no background, playful sci-fi. style: minimalistic, mascot, psychedelic accent. color palette: grayscale suit with rainbow accent. lighting: soft studio. resolution: 4k."
   },
   {
     "id": "23",
-    "name": "Not Fast, Not Furious",
-    "artist": "DinoMike",
-    "price": "£31.78",
-    "product_url": "https://www.threadless.com/shop/@threadless/design/not-fast-not-furious/mens/pullover-hoody/classic-fleece?color=sky_blue&variation=front#m",
+    "name": "Onto the Shore Pullover Hoodie",
+    "artist": "mikekoubou",
+    "price": "£45.1",
+    "product_url": "https://www.threadless.com/shop/@mikekoubou/design/onto-the-shore-1/mens/pullover-hoody/sponge-fleece?color=navy#m",
     "original_image_url": "https://huggingface.co/datasets/AndyXIP/generated-hoodies/resolve/main/original/23.jpg",
     "ai_image_url": "https://huggingface.co/datasets/AndyXIP/generated-hoodies/resolve/main/generated/23.png",
-    "caption": "a light blue hoodie with a sloth on it",
+    "caption": "a polar bear wearing a hat and smoking a pipe on a navy hoodie",
     "tags": [
       "mascot",
-      "badge",
+      "animals",
       "icon",
+      "badge",
       "navy",
-      "emblem",
-      "graphic design",
-      "retro"
+      "artwork",
+      "cool"
     ],
-    "description": "A hoodie design from threadless by DinoMike, featuring a light blue hoodie with a sloth on it. Style: mascot, badge, icon."
+    "description": "A hoodie design featuring a dapper polar bear in a knit cap and pipe within a vintage badge, nautical and charming.",
+    "sd_prompt": "Dapper polar bear in a knit cap and pipe within a vintage circular badge, centered chest graphic, clean edges, high contrast, vector-friendly screenprint layout, no background, nautical charm. style: badge, mascot, minimal. color palette: navy base tones with cream/amber accents. lighting: soft studio. resolution: 4k."
   },
   {
     "id": "24",
@@ -477,76 +495,59 @@
       "navy",
       "minimalistic"
     ],
-    "description": "A hoodie design from threadless by digitalcarbine, featuring an astronaut on a swing with the moon in the background hoodie. Style: grayscale, space, edgy."
+    "description": "A hoodie design featuring an astronaut swinging from a crescent moon, balancing dreamy fantasy with crisp, minimal shapes.",
+    "sd_prompt": "Astronaut swinging from a crescent moon, centered chest graphic, clean silhouette, high contrast, flat shapes, vector-friendly screenprint look, no background, dreamy and minimal. style: grayscale, symbolic, minimalistic. color palette: white/gray on dark. lighting: soft studio. resolution: 4k."
   },
   {
     "id": "25",
-    "name": "DEATH PAC",
-    "artist": "kooky love",
-    "price": "£31.78",
-    "product_url": "https://www.threadless.com/shop/@kookylove/design/death-pac/mens/pullover-hoody/classic-fleece?color=black&variation=front#m",
-    "original_image_url": "https://huggingface.co/datasets/AndyXIP/generated-hoodies/resolve/main/original/25.jpg",
-    "ai_image_url": "https://huggingface.co/datasets/AndyXIP/generated-hoodies/resolve/main/generated/25.png",
-    "caption": "star wars death star hoodie",
-    "tags": [
-      "sci-fi",
-      "yellow",
-      "space",
-      "typography",
-      "texture effects",
-      "cool",
-      "navy"
-    ],
-    "description": "A hoodie design from threadless by kooky love, featuring star wars death star hoodie. Style: sci-fi, yellow, space."
-  },
-  {
-    "id": "26",
     "name": "Catana",
     "artist": "vincenttrinidad",
     "price": "£31.78",
     "product_url": "https://www.threadless.com/shop/@vincenttrinidad/design/catana/mens/pullover-hoody/classic-fleece?color=white#m",
-    "original_image_url": "https://huggingface.co/datasets/AndyXIP/generated-hoodies/resolve/main/original/26.jpg",
-    "ai_image_url": "https://huggingface.co/datasets/AndyXIP/generated-hoodies/resolve/main/generated/26.png",
-    "caption": "a white hoodie with a cat holding a knife",
+    "original_image_url": "https://huggingface.co/datasets/AndyXIP/generated-hoodies/resolve/main/original/25.jpg",
+    "ai_image_url": "https://huggingface.co/datasets/AndyXIP/generated-hoodies/resolve/main/generated/25.png",
+    "caption": "a cat with a knife on its back hoodie",
     "tags": [
       "animals",
-      "cool",
-      "ink",
-      "hand-drawn",
       "graphic design",
-      "sci-fi",
-      "manga"
+      "manga",
+      "pixel art",
+      "digital art",
+      "cool",
+      "sci-fi"
     ],
-    "description": "A hoodie design from threadless by vincenttrinidad, featuring a white hoodie with a cat holding a knife. Style: animals, cool, ink."
+    "description": "A hoodie design featuring a cool cat with a strapped katana, styled like a manga sticker with bold outlines.",
+    "sd_prompt": "Cool cat with a strapped katana (cat + katana), manga-style sticker look with bold outlines, centered chest graphic, clean silhouette, high contrast, no background, vector-friendly screenprint style, playful yet sharp. style: manga, sticker, minimal. color palette: limited bright accents on neutral base. lighting: soft studio. resolution: 4k."
   },
   {
-    "id": "27",
+    "id": "26",
     "name": "Royal",
     "artist": "milkbarista",
     "price": "£45.1",
-    "product_url": "https://www.threadless.com/shop/@threadless/design/royal/mens/pullover-hoody/sponge-fleece?color=heather_royal&variation=front#m",
-    "original_image_url": "https://huggingface.co/datasets/AndyXIP/generated-hoodies/resolve/main/original/27.jpg",
-    "ai_image_url": "https://huggingface.co/datasets/AndyXIP/generated-hoodies/resolve/main/generated/27.png",
-    "caption": "the crown is a symbol of royalty and power",
+    "product_url": "https://www.threadless.com/shop/@threadless/design/royal/mens/pullover-hoody/sponge-fleece?color=black&variation=front#m",
+    "original_image_url": "https://huggingface.co/datasets/AndyXIP/generated-hoodies/resolve/main/original/26.jpg",
+    "ai_image_url": "https://huggingface.co/datasets/AndyXIP/generated-hoodies/resolve/main/generated/26.png",
+    "caption": "the crown hoodie",
     "tags": [
       "navy",
       "mascot",
+      "yellow",
+      "black",
+      "minimalistic",
       "symbol",
-      "typography",
-      "trendy",
-      "graphic design",
-      "mythical"
+      "silhouette"
     ],
-    "description": "A hoodie design from threadless by milkbarista, featuring the crown is a symbol of royalty and power. Style: navy, mascot, typography."
+    "description": "A hoodie design featuring a bold crown icon with simple, regal geometry made for clean, high-impact prints.",
+    "sd_prompt": "Bold crown icon with simple regal geometry, centered chest graphic, thick lines, high contrast, no background, vector-friendly screenprint style, minimal and striking. style: symbol, minimalistic. color palette: golden yellow on dark. lighting: soft studio. resolution: 4k."
   },
   {
-    "id": "28",
+    "id": "27",
     "name": "The Musical Fox",
     "artist": "38Sunsets",
     "price": "£45.1",
     "product_url": "https://www.threadless.com/shop/@threadless/design/the-musical-fox/mens/pullover-hoody/sponge-fleece?color=red&variation=front#m",
-    "original_image_url": "https://huggingface.co/datasets/AndyXIP/generated-hoodies/resolve/main/original/28.jpg",
-    "ai_image_url": "https://huggingface.co/datasets/AndyXIP/generated-hoodies/resolve/main/generated/28.png",
+    "original_image_url": "https://huggingface.co/datasets/AndyXIP/generated-hoodies/resolve/main/original/27.jpg",
+    "ai_image_url": "https://huggingface.co/datasets/AndyXIP/generated-hoodies/resolve/main/generated/27.png",
     "caption": "a red hoodie with a fox wearing headphones",
     "tags": [
       "mascot",
@@ -557,46 +558,70 @@
       "animals",
       "texture effects"
     ],
-    "description": "A hoodie design from threadless by 38Sunsets, featuring a red hoodie with a fox wearing headphones. Style: mascot, badge, icon."
+    "description": "A hoodie design featuring a fox wearing headphones inside a retro badge, blending mascot charm with a music vibe.",
+    "sd_prompt": "Fox wearing headphones inside a retro circular badge, centered chest graphic, clean edges, high contrast, no background, vector-friendly screenprint composition, musical and playful. style: mascot, badge, minimal. color palette: warm reds/oranges with dark outline. lighting: soft studio. resolution: 4k."
   },
   {
-    "id": "29",
+    "id": "28",
     "name": "Rabbit Hole",
     "artist": "arzie13",
     "price": "£31.78",
-    "product_url": "https://www.threadless.com/shop/@threadless/design/rabbit-hole/mens/pullover-hoody/classic-fleece?color=white&variation=front#m",
+    "product_url": "https://www.threadless.com/shop/@threadless/design/rabbit-hole/mens/pullover-hoody/classic-fleece?color=forest_green&variation=front#m",
+    "original_image_url": "https://huggingface.co/datasets/AndyXIP/generated-hoodies/resolve/main/original/28.jpg",
+    "ai_image_url": "https://huggingface.co/datasets/AndyXIP/generated-hoodies/resolve/main/generated/28.png",
+    "caption": "the hoodie is dark green with a white logo on the chest",
+    "tags": [
+      "green",
+      "symbol",
+      "navy",
+      "ink",
+      "icon",
+      "silhouette",
+      "gaming"
+    ],
+    "description": "A hoodie design featuring a bold rabbit icon with a portal-like outline, clean and instantly recognizable.",
+    "sd_prompt": "Bold rabbit icon with a portal-like outline, centered chest graphic, thick clean lines, high contrast, no background, vector-friendly screenprint style, simple and iconic. style: symbol, silhouette, minimal. color palette: white on forest green. lighting: soft studio. resolution: 4k."
+  },
+  {
+    "id": "29",
+    "name": "Between The Mountains And The Stars",
+    "artist": "ThePaperCrane",
+    "price": "£45.1",
+    "product_url": "https://www.threadless.com/shop/@thepapercrane/design/between-the-mountains-and-the-stars/mens/pullover-hoody/sponge-fleece?color=charcoal#m",
     "original_image_url": "https://huggingface.co/datasets/AndyXIP/generated-hoodies/resolve/main/original/29.jpg",
     "ai_image_url": "https://huggingface.co/datasets/AndyXIP/generated-hoodies/resolve/main/generated/29.png",
-    "caption": "a white hoodie with a small logo on the front",
+    "caption": "the mountains and the moon on a dark background hoodie",
     "tags": [
-      "white",
+      "space",
+      "minimalistic",
+      "navy",
       "grayscale",
-      "monochrome",
-      "gray",
       "mysterious",
-      "vintage",
-      "mascot"
+      "silhouette",
+      "pastel blue"
     ],
-    "description": "A hoodie design from threadless by arzie13, featuring a white hoodie with a small logo on the front. Style: grayscale, monochrome, gray."
+    "description": "A hoodie design featuring layered mountain silhouettes beneath a glowing moon and stars, serene and minimal.",
+    "sd_prompt": "Layered mountain silhouettes beneath a glowing moon and tiny stars, centered chest graphic, clean silhouette, high contrast, no background, vector-friendly screenprint style, serene and minimal. style: minimalistic, space, grayscale. color palette: cool charcoal with pale moonlight. lighting: soft studio. resolution: 4k."
   },
   {
     "id": "30",
-    "name": "Great Ramen Wave White",
-    "artist": "vincenttrinidad",
-    "price": "£45.1",
-    "product_url": "https://www.threadless.com/shop/@vincenttrinidad/design/great-ramen-wave-white/mens/pullover-hoody/sponge-fleece?color=black#m",
+    "name": "Sunset Fusion (lone tree version)",
+    "artist": "bulo",
+    "price": "£31.78",
+    "product_url": "https://www.threadless.com/shop/@bulo/design/sunset-fusion-lone-tree-version/mens/pullover-hoody/classic-fleece?color=black#m",
     "original_image_url": "https://huggingface.co/datasets/AndyXIP/generated-hoodies/resolve/main/original/30.jpg",
     "ai_image_url": "https://huggingface.co/datasets/AndyXIP/generated-hoodies/resolve/main/generated/30.png",
-    "caption": "the great wave hoodie",
+    "caption": "a black hoodie with a colorful tree and rainbow stripes",
     "tags": [
-      "pop culture",
-      "cool",
-      "sci-fi",
-      "animals",
-      "space",
-      "graphic design",
-      "sports"
+      "glitch art",
+      "psychedelic",
+      "experimental",
+      "silhouette",
+      "gradient",
+      "abstract",
+      "colorful"
     ],
-    "description": "A hoodie design from threadless by vincenttrinidad, featuring the great wave hoodie. Style: pop culture, cool, sci-fi."
+    "description": "A hoodie design featuring a lone tree silhouette rising through stacked sunset stripes, vivid and graphic.",
+    "sd_prompt": "Lone tree silhouette rising through stacked horizontal sunset stripes, centered chest graphic, clean silhouette, high contrast, gradient bands, no background, screenprint-friendly, vivid and graphic. style: minimalistic, gradient, abstract. color palette: warm rainbow sunset on black. lighting: soft studio. resolution: 4k."
   }
 ]
