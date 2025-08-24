@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -9,6 +10,7 @@ import { fetchHoodies, processHoodiesData } from "@/services/api";
 const Shop = () => {
   const [topAIHoodies, setTopAIHoodies] = useState<HoodiePair[]>([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const loadTopAIHoodies = async () => {
@@ -133,7 +135,7 @@ const Shop = () => {
 
                 <Button 
                   className="w-full" 
-                  onClick={() => window.location.href = `/product/${hoodie.id}`}
+                  onClick={() => navigate(`/product/${hoodie.id}`)}
                 >
                   View Product
                 </Button>
