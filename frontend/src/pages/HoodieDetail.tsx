@@ -5,7 +5,7 @@ import { VotingInterface } from "@/components/VotingInterface";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { fetchHoodies, processHoodiesData } from "@/services/api";
 import { HoodiePair } from "@/types/hoodie";
-import { ArrowLeft, Share2 } from "lucide-react";
+import { ArrowLeft, Share2, ArrowRight } from "lucide-react";
 import { useEffect } from "react";
 import { toast } from "sonner";
 
@@ -15,14 +15,21 @@ const HoodieDetail = () => {
   const [votes, setVotes] = useState<{ original: number; ai: number } | null>(null);
   const [hasVoted, setHasVoted] = useState(false);
   const [hoodie, setHoodie] = useState<HoodiePair | null>(null);
+  const [allHoodies, setAllHoodies] = useState<HoodiePair[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const loadHoodie = async () => {
       try {
+        // Reset voting states when navigating to new hoodie
+        setHasVoted(false);
+        setVotes(null);
+        setLoading(true);
+        
         const backendHoodies = await fetchHoodies();
         const processedHoodies = await processHoodiesData(backendHoodies);
         const foundHoodie = processedHoodies.find(h => h.id === id);
+        setAllHoodies(processedHoodies);
         setHoodie(foundHoodie || null);
       } catch (error) {
         console.error('Failed to load hoodie:', error);
@@ -74,6 +81,12 @@ const HoodieDetail = () => {
 
   const currentVotes = votes || hoodie.votes;
   const totalVotes = currentVotes.original + currentVotes.ai;
+
+  // Find next hoodie
+  const currentIndex = allHoodies.findIndex(h => h.id === id);
+  const nextHoodie = currentIndex >= 0 && currentIndex < allHoodies.length - 1 
+    ? allHoodies[currentIndex + 1] 
+    : null;
 
   return (
     <div className="min-h-screen bg-background">
@@ -136,7 +149,7 @@ const HoodieDetail = () => {
             </h3>
             <div className="space-y-4">
               <div className="flex justify-between items-center">
-                <span className="text-foreground">Design A</span>
+                <span className="text-foreground">Original</span>
                 <span className="text-muted-foreground">
                   {currentVotes.original} votes ({Math.round((currentVotes.original / totalVotes) * 100)}%)
                 </span>
@@ -149,7 +162,7 @@ const HoodieDetail = () => {
               </div>
               
               <div className="flex justify-between items-center mt-4">
-                <span className="text-foreground">Design B</span>
+                <span className="text-foreground">AI</span>
                 <span className="text-muted-foreground">
                   {currentVotes.ai} votes ({Math.round((currentVotes.ai / totalVotes) * 100)}%)
                 </span>
@@ -161,6 +174,20 @@ const HoodieDetail = () => {
                 ></div>
               </div>
             </div>
+            
+            {/* Next Button */}
+            {nextHoodie && (
+              <div className="mt-8 text-center">
+                <Button
+                  onClick={() => navigate(`/hoodie/${nextHoodie.id}`)}
+                  className="flex items-center space-x-2"
+                  variant="gradient"
+                >
+                  <span>Next Design</span>
+                  <ArrowRight className="w-4 h-4" />
+                </Button>
+              </div>
+            )}
           </div>
         )}
       </div>

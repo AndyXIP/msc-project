@@ -35,8 +35,8 @@ export const VotingInterface = ({ originalImage, aiImage, hoodieName, hoodieId, 
         onVote(choice);
         toast.success(
           choice === "original" 
-            ? "You voted for Design A!" 
-            : "You voted for Design B!"
+            ? "You voted for Original!" 
+            : "You voted for AI!"
         );
       } else {
         toast.error("Failed to record vote. Please try again.");
