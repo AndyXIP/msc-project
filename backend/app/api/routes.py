@@ -9,7 +9,7 @@ DB_PATH = "data/hoodies.json"
 
 def load_hoodies():
     if not os.path.exists(DB_PATH):
-        raise HTTPException(status_code=404, detail="Hoodies database not found")
+        raise HTTPException(status_code=404, detail="Hoodies data not found")
 
     with open(DB_PATH, "r", encoding="utf-8") as f:
         return json.load(f)
