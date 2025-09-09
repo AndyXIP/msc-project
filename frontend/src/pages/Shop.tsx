@@ -58,7 +58,7 @@ const Shop = () => {
             </h1>
           </div>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Discover the most popular AI-generated hoodie designs voted by our community
+            Popular AI-generated hoodie designs by vote
           </p>
         </div>
 

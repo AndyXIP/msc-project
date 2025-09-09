@@ -42,8 +42,7 @@ const Home = () => {
             Choose Your Style
           </h1>
           <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Vote between original hoodie designs and AI-generated alternatives. 
-            Help shape the future of fashion with your preferences.
+            Vote between original hoodie designs and AI-generated alternatives.
           </p>
           <div className="w-32 h-1 bg-gradient-primary mx-auto rounded-full"></div>
         </div>

@@ -81,9 +81,6 @@ const Results = () => {
           <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-primary bg-clip-text text-transparent">
             Voting Results
           </h1>
-          <p className="text-xl text-muted-foreground">
-            See how original designs stack up against AI-generated alternatives
-          </p>
         </div>
 
         {/* Overall Statistics */}
