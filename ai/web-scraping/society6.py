@@ -7,9 +7,10 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 
+# Scroll to trigger dynamic loading elements on the web page
 def scroll_to_bottom(driver, step=300, pause=0.75):
     driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-    time.sleep(pause)  # wait for content to load after scrolling
+    time.sleep(pause)
     current_scroll = driver.execute_script("return window.pageYOffset;")
     while current_scroll > 0:
         new_scroll = max(0, current_scroll - step)
@@ -18,22 +19,22 @@ def scroll_to_bottom(driver, step=300, pause=0.75):
         current_scroll = new_scroll
 
 
-def scrape_society6(pages=1, limit=None, headless=False, start_page=1):  # <-- added start_page
+def scrape_society6(pages=1, limit=None, headless=False, start_page=1):
     """
     Scrape Society6 hoodie listings.
 
     Args:
-        pages (int): number of pages to scrape starting from start_page
-        limit (int|None): stop early if total items reaches this
-        headless (bool): run Selenium in headless mode
-        start_page (int): first page number to scrape (default 1)
+        pages (int): number of pages to scrape starting from `start_page`.
+        limit (int|None): maximum number of hoodie data to scrape.
+        headless (bool): run browser headless.
+        start_page (int): first page number to scrape (defaults to 1).
     """
     base_url = "https://society6.com/collections/hoodies?page={page}"
     driver = setup_driver(headless=headless)
     wait = WebDriverWait(driver, 20)
     all_results = []
 
-    # loop now starts at start_page and runs for `pages` pages
+    # checks different web pages for hoodie data
     for page in range(start_page, start_page + pages):
         url = base_url.format(page=page)
         print(f"Scraping Society6 page {page}: {url}")

@@ -17,7 +17,7 @@ def process_all_for_source(source, prefix="", mode="top10"):
     processed_json = os.path.join("data", "processed", f"{prefix}{source}.json")
     
     if not os.path.exists(raw_json):
-        print(f"⚠ Raw JSON not found for source '{source}': {raw_json}")
+        print(f"Raw JSON not found for source '{source}': {raw_json}")
         return
     
     # Download images (skip if already exists)
@@ -43,7 +43,7 @@ def process_all_for_source(source, prefix="", mode="top10"):
     os.makedirs(os.path.dirname(processed_json), exist_ok=True)
     with open(processed_json, "w", encoding="utf-8") as f:
         json.dump(data, f, indent=2, ensure_ascii=False)
-    print(f"✅ Images info saved: {processed_json}")
+    print(f"Images info saved: {processed_json}")
     
     # Crop images
     process_source_images(source, processed_json, mode=mode)
@@ -62,18 +62,18 @@ def process_all_for_source(source, prefix="", mode="top10"):
             item["caption"] = generate_caption(img_path).strip()
             print(f"✓ Captioned {img_path}: {item['caption']}")
         except Exception as e:
-            print(f"❌ Failed BLIP/clean caption for {img_path}: {e}")
+            print(f"Failed BLIP/clean caption for {img_path}: {e}")
         
         # CLIP tags
         try:
             item["tags"] = generate_tags(img_path, design_tags, top_k=7)
         except Exception as e:
-            print(f"❌ Failed CLIP tagging for {img_path}: {e}")
+            print(f"Failed CLIP tagging for {img_path}: {e}")
     
     # Save after captions + tags
     with open(processed_json, "w", encoding="utf-8") as f:
         json.dump(data, f, indent=2, ensure_ascii=False)
-    print(f"✅ Captions and tags updated: {processed_json}")
+    print(f"Captions and tags updated: {processed_json}")
 
     generate_descriptions(source, processed_json)
     

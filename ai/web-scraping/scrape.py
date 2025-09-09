@@ -10,24 +10,16 @@ from redbubble import scrape_redbubble
 from society6 import scrape_society6
 from threadless import scrape_threadless
 from utils.save_data import save_to_json
-
-# ------------- OCR setup (GPU if available) -------------
-try:
-    import torch
-    GPU_AVAILABLE = torch.cuda.is_available()
-except Exception:
-    GPU_AVAILABLE = False
-
 import easyocr
 from PIL import Image
 
-READER = easyocr.Reader(['en'], gpu=GPU_AVAILABLE)
+# OCR setup
+READER = easyocr.Reader(['en'], gpu=False)
 HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; no-text-scraper/1.0)"}
 HTTP_TIMEOUT = 12
 MIN_SIDE = 128      # skip tiny icons/thumbnails
-MIN_CHARS = 3       # >= MIN_CHARS characters => treat as "has text"
+MIN_CHARS = 3       # num of char to consider as text
 TOP10_KEEP_LIMIT = 10
-# --------------------------------------------------------
 
 SCRAPE_FUNCTIONS = {
     "redbubble": scrape_redbubble,
@@ -55,7 +47,7 @@ def too_small(img: Image.Image, min_side=MIN_SIDE) -> bool:
     return min(w, h) < min_side
 
 def has_text_in_image(img: Image.Image, min_chars=MIN_CHARS) -> bool:
-    """Use EasyOCR to detect any text in a PIL image."""
+    """EasyOCR detection for PIL image."""
     try:
         arr = np.array(img)
         results = READER.readtext(arr)
@@ -76,7 +68,6 @@ def scrape(mode="top10"):
         print("Usage: python scrape.py [top10|all]")
         sys.exit(1)
 
-    print(f"EasyOCR GPU available: {GPU_AVAILABLE}")
     filename_prefix = "" if mode == "all" else "top10_"
 
     data_sources_path = os.path.join(os.path.dirname(__file__), "..", "data", "data_sources.json")
@@ -100,9 +91,9 @@ def scrape(mode="top10"):
         if mode == "top10":
             collected = []
             has_start = supports_start_page(scrape_func)
-            prev_cum_len = 0  # used when start_page isn't supported
+            prev_cum_len = 0
 
-            # Walk pages until we have 10 no-text items
+            # Scrape first 10 hoodies without text
             for page in range(1, max_pages + 1):
                 if len(collected) >= TOP10_KEEP_LIMIT:
                     break
@@ -112,12 +103,11 @@ def scrape(mode="top10"):
                     batch = scrape_func(pages=1, limit=None, headless=this_headless, start_page=page)
                     page_items = batch
                 else:
-                    # Fallback for scrapers without start_page (e.g., original threadless)
                     cumulative = scrape_func(pages=page, limit=None, headless=this_headless)
                     page_items = cumulative[prev_cum_len:]
                     prev_cum_len = len(cumulative)
 
-                print(f"- Pulled {len(page_items)} items from {name} page {page}. Running OCR filter...")
+                print(f"Pulled {len(page_items)} items from {name} page {page}. Running OCR filter...")
 
                 for item in page_items:
                     if len(collected) >= TOP10_KEEP_LIMIT:
@@ -135,14 +125,14 @@ def scrape(mode="top10"):
                     collected.append(item)
 
             save_to_json(collected, f"{filename_prefix}{name}.json")
-            print(f"- Saved {len(collected)} no-text item(s) from {name}")
+            print(f"Saved {len(collected)} no-text item(s) from {name}")
             total_count += len(collected)
 
         else:
-            # ALL mode: NO OCR (keep all for training)
+            # No OCR for fine-tuning data
             items = scrape_func(pages=max_pages, headless=this_headless)
             save_to_json(items, f"{filename_prefix}{name}.json")
-            print(f"- Saved {len(items)} item(s) from {name} (no OCR in 'all')")
+            print(f"Saved {len(items)} item(s) from {name} (no OCR in 'all')")
             total_count += len(items)
 
     print(f"\nSaved a total of {total_count} item(s) ({mode})")

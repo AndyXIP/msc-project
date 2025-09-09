@@ -75,4 +75,4 @@ with open(output_file_backend, "w", encoding="utf-8") as out_f:
 with open(output_file_trendy, "w", encoding="utf-8") as out_f:
     json.dump(all_data, out_f, indent=2, ensure_ascii=False)
 
-print(f"✅ Saved {len(all_data)} entries to {output_file_backend} and {output_file_trendy}")
+print(f"Saved {len(all_data)} entries to {output_file_backend} and {output_file_trendy}")

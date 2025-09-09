@@ -10,7 +10,7 @@ from selenium.webdriver.support import expected_conditions as EC
 
 def _safe_get(driver_factory, url, headless, max_retries=3, page_load_wait=25, backoff=1.25):
     """
-    Navigate to URL with retries. If the window/session is lost, recreate driver.
+    Attempt to renavigate to URL if session is lost and recreate drivers
     Returns (driver, ok_bool).
     """
     driver = driver_factory(headless=headless)
@@ -39,7 +39,6 @@ def _safe_get(driver_factory, url, headless, max_retries=3, page_load_wait=25, b
 
 
 def _dismiss_cookie_banner(driver):
-    # OneTrust accept button is common on Threadless
     try:
         btn = WebDriverWait(driver, 5).until(
             EC.element_to_be_clickable((By.ID, "onetrust-accept-btn-handler"))
@@ -58,7 +57,13 @@ def _progressive_scroll(driver, passes=12, pause=0.9):
 
 def scrape_threadless(pages=1, limit=None, headless=False, start_page=1):
     """
-    Scrape Threadless hoodie listings, resilient to UC window loss.
+    Scrape Threadless hoodie listings.
+
+    Args:
+        pages (int): number of pages to scrape starting from `start_page`.
+        limit (int|None): maximum number of hoodie data to scrape.
+        headless (bool): run browser headless.
+        start_page (int): first page number to scrape (defaults to 1).
     """
     base_url = (
         "https://www.threadless.com/search/"
@@ -74,7 +79,6 @@ def scrape_threadless(pages=1, limit=None, headless=False, start_page=1):
         url = base_url.format(page=page)
         print(f"Scraping Threadless page {page}: {url}")
 
-        # Navigate with retries (recreate driver if needed)
         driver, ok = _safe_get(stealth_setup_driver, url, headless=headless, max_retries=3)
         if not ok:
             print(f"Failed to open page {page}: {url}")
@@ -86,14 +90,11 @@ def scrape_threadless(pages=1, limit=None, headless=False, start_page=1):
 
         wait = WebDriverWait(driver, 25)
 
-        # Dismiss cookie banner if present
         _dismiss_cookie_banner(driver)
 
-        # Trigger lazy loading
         _progressive_scroll(driver, passes=12, pause=0.9)
 
         try:
-            # Wait for a broad container selector (class names can vary in headless)
             wait.until(
                 EC.presence_of_element_located(
                     (By.CSS_SELECTOR, 'div.results-container-app, div.grid, div#browse-listing, main')
@@ -107,7 +108,6 @@ def scrape_threadless(pages=1, limit=None, headless=False, start_page=1):
                 pass
             continue
 
-        # Prefer grid items, fall back to anchors if classnames differ
         product_cards = driver.find_elements(By.CSS_SELECTOR, 'div.grid-item')
         if not product_cards:
             product_cards = driver.find_elements(
@@ -121,7 +121,6 @@ def scrape_threadless(pages=1, limit=None, headless=False, start_page=1):
             if limit and len(all_results) >= limit:
                 break
             try:
-                # Product URL
                 try:
                     link_elem = card.find_element(
                         By.CSS_SELECTOR, 'a.pjax-link.media-image.discover-as-product-linkback-mc'
@@ -131,28 +130,24 @@ def scrape_threadless(pages=1, limit=None, headless=False, start_page=1):
 
                 product_url = link_elem.get_attribute("href")
 
-                # Title
                 try:
                     title_elem = card.find_element(By.CSS_SELECTOR, 'a.sf-shop-design-title.pjax-link')
                     title = title_elem.text.strip()
                 except Exception:
                     title = (link_elem.get_attribute("title") or "").strip()
 
-                # Artist
                 try:
                     artist_elem = card.find_element(By.CSS_SELECTOR, 'a.sf-by-line.pjax-link')
                     artist = artist_elem.text.strip()
                 except Exception:
                     artist = ""
 
-                # Price
                 try:
                     price_elem = card.find_element(By.CSS_SELECTOR, 'span.active_price')
                     price = price_elem.text.strip()
                 except Exception:
                     price = ""
 
-                # Image URL
                 try:
                     img_elem = card.find_element(By.CSS_SELECTOR, 'img.img-responsive, img')
                     image_url = img_elem.get_attribute("src") or img_elem.get_attribute("data-src")
@@ -173,7 +168,7 @@ def scrape_threadless(pages=1, limit=None, headless=False, start_page=1):
                 print(f"Error parsing product card on page {page}: {e}")
                 continue
 
-        print(f"- Collected {len(all_results) - count_start} items from page {page}")
+        print(f"Collected {len(all_results) - count_start} items from page {page}")
 
         try:
             driver.quit()
@@ -190,7 +185,6 @@ def main():
         print("Usage: python scrape_threadless.py [top10|all]")
         return
 
-    # NOT HEADLESS for debugging/visibility
     if mode == "top10":
         data = scrape_threadless(pages=1, limit=10, start_page=1, headless=False)
         save_to_json(data, "top10_threadless.json")

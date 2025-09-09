@@ -18,7 +18,7 @@ from tqdm.auto import tqdm
 torch.backends.cudnn.benchmark = True
 
 
-# ---------------- Configuration ---------------- #
+# Model Configuration
 model_name = "runwayml/stable-diffusion-v1-5"
 captions_jsonl = "data/processed/captions.jsonl"
 output_dir = "./sd-finetuned-hoodie"
@@ -32,13 +32,8 @@ logging_steps = 50
 save_steps = 250
 
 
-# ---------------- Checkpoint Utilities ---------------- #
+# Checkpointing
 def find_latest_checkpoint(base_dir: str):
-    """
-    Finds the latest common training step across UNet and text encoder checkpoints.
-    Accepts timestamped folders like 'unet-249-20250817-...' and returns actual folder paths.
-    Only considers folders that contain a 'config.json'.
-    """
     base = Path(base_dir)
     unet_map = {}
     txt_map = {}
@@ -63,7 +58,6 @@ def find_latest_checkpoint(base_dir: str):
 
 
 def _atomic_torch_save(obj, path: str):
-    """Write a .pt atomically to avoid half-written/corrupt files on interruptions."""
     tmp = path + ".tmp"
     torch.save(obj, tmp)
     os.replace(tmp, path)
@@ -84,9 +78,8 @@ def save_optimizer_scheduler(optimizer, scheduler, step, base_dir):
 
 
 def load_optimizer_scheduler(optimizer, scheduler, step, base_dir):
-    """Load optimizer/scheduler state if present and not obviously corrupt."""
     def _safe_load(path, what, apply_fn):
-        if not os.path.exists(path) or os.path.getsize(path) < 1024:  # tiny/missing => skip
+        if not os.path.exists(path) or os.path.getsize(path) < 1024:
             print(f"[resume] {what} state not found or too small at {path}, continuing fresh.")
             return
         try:
@@ -100,7 +93,7 @@ def load_optimizer_scheduler(optimizer, scheduler, step, base_dir):
     _safe_load(os.path.join(base_dir, f"scheduler-{step}.pt"), "scheduler", scheduler.load_state_dict)
 
 
-# ---------------- Dataset utils ---------------- #
+# Dataset utilities
 def build_transform(img_size: int):
     return transforms.Compose([
         transforms.Resize((img_size, img_size), interpolation=transforms.InterpolationMode.BILINEAR),
@@ -133,7 +126,6 @@ def collate_fn(batch):
 
 
 def main():
-    # Windows safety: ensure this code only runs once (not in worker imports)
     if platform.system() == "Windows":
         try:
             import multiprocessing as mp
@@ -286,5 +278,4 @@ def main():
 
 
 if __name__ == "__main__":
-    # Windows multiprocessing safety
     main()

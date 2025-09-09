@@ -5,9 +5,7 @@ from diffusers import AutoencoderKL, UNet2DConditionModel
 import os
 import json
 
-# -------------------------------
-# Load the fine-tuned Stable Diffusion model
-# -------------------------------
+# Load fine-tuned SD v1.5
 def load_model(model_dir="./sd-finetuned-model"):
     print("Loading fine-tuned model...")
     unet = UNet2DConditionModel.from_pretrained(os.path.join(model_dir, "unet"))
@@ -31,9 +29,7 @@ def load_model(model_dir="./sd-finetuned-model"):
     print(f"Model loaded on {device}")
     return pipe
 
-# -------------------------------
-# Get next available filename
-# -------------------------------
+
 def get_next_filename(output_dir):
     os.makedirs(output_dir, exist_ok=True)
     existing_files = [f for f in os.listdir(output_dir) if f.endswith(".png")]
@@ -45,9 +41,7 @@ def get_next_filename(output_dir):
     next_number = max(existing_numbers, default=0) + 1
     return os.path.join(output_dir, f"{next_number}.png")
 
-# -------------------------------
-# Generate a single image
-# -------------------------------
+
 def generate_image(pipe, prompt, output_path=None, height=512, width=512, guidance_scale=7.5, num_inference_steps=50):
     print(f"Generating image for prompt: {prompt}")
     negative_prompt = "text, letters, words, caption, watermark, signature, typography"
@@ -68,33 +62,24 @@ def generate_image(pipe, prompt, output_path=None, height=512, width=512, guidan
     image.save(output_path)
     print(f"Saved image at {output_path}")
 
-# -------------------------------
-# Batch generate images from a list of prompts
-# -------------------------------
+
 def batch_generate(pipe, prompts, output_dir="data/images/generated"):
     os.makedirs(output_dir, exist_ok=True)
     for prompt in prompts:
         output_path = get_next_filename(output_dir)
         generate_image(pipe, prompt, output_path)
 
-# -------------------------------
-# Load captions/descriptions from JSON
-# -------------------------------
+
 def load_captions_from_json(json_path):
     with open(json_path, "r", encoding="utf-8") as f:
         data = json.load(f)
     return [item['description'] for item in data if "description" in item]
 
-# -------------------------------
-# Main execution
-# -------------------------------
+
 if __name__ == "__main__":
-    # Load model
     pipe = load_model()
 
-    # Load captions from JSON
     json_file_path = "data/processed/trendy_captions.json"
     batch_prompts = load_captions_from_json(json_file_path)
 
-    # Generate images
     batch_generate(pipe, batch_prompts)

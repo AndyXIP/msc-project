@@ -7,15 +7,15 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 
-def scrape_redbubble(pages=1, limit=None, headless=False, start_page=1):  # <-- added start_page
+def scrape_redbubble(pages=1, limit=None, headless=False, start_page=1):
     """
     Scrape Redbubble hoodie listings.
 
     Args:
         pages (int): number of pages to scrape starting from `start_page`.
-        limit (int|None): stop early after collecting this many items.
+        limit (int|None): maximum number of hoodie data to scrape.
         headless (bool): run browser headless.
-        start_page (int): FIRST page number to scrape (default 1).
+        start_page (int): first page number to scrape (defaults to 1).
     """
     base_url = (
         "https://www.redbubble.com/shop"
@@ -24,7 +24,7 @@ def scrape_redbubble(pages=1, limit=None, headless=False, start_page=1):  # <-- 
     driver = setup_driver(headless=headless)
     all_results = []
 
-    # iterate from start_page up to start_page + pages - 1
+    # checks different web pages for hoodie data
     for page in range(start_page, start_page + pages):
         url = base_url.format(page=page)
         print(f"Scraping page {page}: {url}")
@@ -32,7 +32,7 @@ def scrape_redbubble(pages=1, limit=None, headless=False, start_page=1):  # <-- 
 
         wait = WebDriverWait(driver, 20)
 
-        # Scroll down to trigger lazy loading
+        # Scroll down the web page to load all dynamic elements
         for _ in range(3):
             driver.execute_script("window.scrollBy(0, window.innerHeight);")
             time.sleep(1)
@@ -74,7 +74,7 @@ def scrape_redbubble(pages=1, limit=None, headless=False, start_page=1):  # <-- 
                     "image_url": image_url
                 })
 
-                # Stop early if limit reached
+                # Stop early if limit reached (for top 10 hoodies)
                 if limit and len(all_results) >= limit:
                     driver.quit()
                     return all_results
@@ -88,7 +88,7 @@ def scrape_redbubble(pages=1, limit=None, headless=False, start_page=1):  # <-- 
 
 
 def main():
-    # Get mode from CLI (default to "top10")
+    # Get mode from terminal (default to "top10")
     mode = sys.argv[1] if len(sys.argv) > 1 else "top10"
 
     if mode not in ("top10", "all"):
@@ -96,7 +96,7 @@ def main():
         return
 
     if mode == "top10":
-        hoodies = scrape_redbubble(pages=1, limit=10, start_page=1, headless=True)  # now explicit
+        hoodies = scrape_redbubble(pages=1, limit=10, start_page=1, headless=True)
         save_to_json(hoodies, "top10_redbubble.json")
         print(f"Saved {len(hoodies)} hoodies (top 10)")
     else:
