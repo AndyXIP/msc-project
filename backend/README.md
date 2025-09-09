@@ -1,4 +1,4 @@
-# Project Setup & Usage Guide
+# Backend Setup & Usage Guide
 
 This guide walks you through setting up your development environment and using the codebase.
 
@@ -19,7 +19,7 @@ If Python is not installed, download it from [python.org](https://www.python.org
 ---
 
 ### 2️⃣ Create a Virtual Environment
-In your project folder, run:
+In your backend folder, run:
 
 ```bash
 python3.11 -m venv .venv
