@@ -60,7 +60,7 @@ def process_all_for_source(source, prefix="", mode="top10"):
         # BLIP caption
         try:    
             item["caption"] = generate_caption(img_path).strip()
-            print(f"✓ Captioned {img_path}: {item['caption']}")
+            print(f"Captioned {img_path}: {item['caption']}")
         except Exception as e:
             print(f"Failed BLIP/clean caption for {img_path}: {e}")
         
