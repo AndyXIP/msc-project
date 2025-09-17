@@ -40,7 +40,7 @@ def main(mode="top10"):
         processed_json_path = f"data/processed/{prefix}{source_name}.json"
 
         if not os.path.exists(processed_json_path):
-            print(f"⚠ Processed JSON not found for source '{source_name}' at {processed_json_path}")
+            print(f"Processed JSON not found for source '{source_name}' at {processed_json_path}")
             continue
 
         with open(processed_json_path, "r", encoding="utf-8") as f:
@@ -51,21 +51,21 @@ def main(mode="top10"):
             # Use cropped images if available
             img_path = item.get("local_cropped_url")
             if not img_path or not os.path.exists(img_path):
-                print(f"⚠ Image path not found or missing: {img_path}")
+                print(f"Image path not found or missing: {img_path}")
                 continue
 
             try:
                 caption = generate_caption(img_path)
                 item["caption"] = caption
                 updated = True
-                print(f"✓ Captioned {img_path}: {caption}")
+                print(f"Captioned {img_path}: {caption}")
             except Exception as e:
-                print(f"❌ Failed captioning {img_path}: {e}")
+                print(f"Failed captioning {img_path}: {e}")
 
         if updated:
             with open(processed_json_path, "w", encoding="utf-8") as f:
                 json.dump(data, f, indent=2, ensure_ascii=False)
-            print(f"✅ Updated captions saved to {processed_json_path}")
+            print(f"Updated captions saved to {processed_json_path}")
 
 if __name__ == "__main__":
     mode = sys.argv[1] if len(sys.argv) > 1 else "top10"

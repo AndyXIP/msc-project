@@ -27,21 +27,21 @@ def crop_and_resize_image(image_path: str, output_path: str, crop_box: tuple[int
 
         os.makedirs(os.path.dirname(output_path), exist_ok=True)
         resized.save(output_path)
-        print(f"✓ Cropped and resized: {output_path}")
+        print(f"Cropped and resized: {output_path}")
         return True
     except Exception as e:
-        print(f"❌ Failed to process {image_path}: {e}")
+        print(f"Failed to process {image_path}: {e}")
         return False
 
 def process_source_images(source: str, input_json: str, mode: str = "all") -> None:
     """Process all images in a JSON file for a given source."""
     crop_box = CROP_PRESETS.get(source.lower())
     if not crop_box:
-        print(f"⚠ No crop preset for source '{source}', skipping.")
+        print(f"No crop preset for source '{source}', skipping.")
         return
 
     if not os.path.exists(input_json):
-        print(f"⚠ JSON not found: {input_json}")
+        print(f"JSON not found: {input_json}")
         return
 
     with open(input_json, "r", encoding="utf-8") as f:
@@ -64,7 +64,7 @@ def process_source_images(source: str, input_json: str, mode: str = "all") -> No
     # Save updated JSON
     with open(input_json, "w", encoding="utf-8") as f:
         json.dump(entries, f, indent=2, ensure_ascii=False)
-    print(f"✅ Updated JSON saved: {input_json}")
+    print(f"Updated JSON saved: {input_json}")
 
 def main(mode: str = "all"):
     with open("data/data_sources.json", "r", encoding="utf-8") as f:

@@ -9,7 +9,7 @@ def generate_descriptions(source: str, source_file: str):
     source_path = Path(source_file)
 
     if not source_path.exists():
-        print(f"⚠️ Processed JSON not found for source '{source}' at {source_path}")
+        print(f"Processed JSON not found for source '{source}' at {source_path}")
         return
 
     with open(source_path, "r", encoding="utf-8") as f:
@@ -38,7 +38,7 @@ def generate_descriptions(source: str, source_file: str):
             updated = True
 
         except KeyError as e:
-            print(f"❌ Skipping item {i} in '{source}' due to missing key: {e}")
+            print(f"Skipping item {i} in '{source}' due to missing key: {e}")
 
     if updated:
         with open(source_path, "w", encoding="utf-8") as f:
@@ -54,7 +54,7 @@ def main(mode="top10"):
     # Load sources
     sources_file = os.path.join("data", "data_sources.json")
     if not os.path.exists(sources_file):
-        print(f"⚠️ Sources file not found: {sources_file}")
+        print(f"Sources file not found: {sources_file}")
         return
 
     with open(sources_file, "r", encoding="utf-8") as f:
