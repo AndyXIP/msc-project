@@ -4,9 +4,9 @@ This guide walks you through setting up your development environment and using t
 
 ---
 
-## ⚙️ Setting up a Python Virtual Environment
+## Setting up a Python Virtual Environment
 
-### 1️⃣ Install Python
+### Install Python
 Ensure **Python 3.11.6+** is installed.  
 Check your version:
 
@@ -18,7 +18,7 @@ If Python is not installed, download it from [python.org](https://www.python.org
 
 ---
 
-### 2️⃣ Create a Virtual Environment
+### Create a Virtual Environment
 In your backend folder, run:
 
 ```bash
@@ -29,7 +29,7 @@ This creates a `.venv` directory containing the virtual environment.
 
 ---
 
-### 3️⃣ Activate the Virtual Environment
+### Activate the Virtual Environment
 
 - **macOS / Linux**
   ```bash
@@ -50,7 +50,7 @@ When activated, your terminal prompt will show `(venv)`.
 
 ---
 
-### 4️⃣ Install Dependencies
+### Install Dependencies
 With the environment activated:
 
 ```bash
@@ -59,7 +59,7 @@ pip install -r requirements.txt
 
 ---
 
-### 5️⃣ Deactivate the Virtual Environment
+### Deactivate the Virtual Environment
 When finished working:
 
 ```bash
@@ -68,7 +68,7 @@ deactivate
 
 ---
 
-## 🛠️ Using the Code
+## Using the Code
 
 ### Hosting Backend
 
